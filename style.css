@@ -1,0 +1,15 @@
+/*
+Theme Name: {THEMENAME}
+Theme URI: {THEME URI}
+Author: {COMPANY}
+Author URI: {COMPANY URI}
+Version: 0.0.1
+*/
+
+*{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	text-decoration:none !important;
+	outline:0 !important;
+}

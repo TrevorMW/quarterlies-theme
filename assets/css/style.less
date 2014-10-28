@@ -1,0 +1,297 @@
+
+/* @group Base font characteristics */
+@bodyColor: #666;
+@lineHeight: 25px;
+@fontSize: 16px;
+@fontWeight: 400;
+/* @end */
+
+
+/* @group Base Fonts */
+@baseFont: 'Droid Sans', sans-serif;
+@headingFont: 'Tauri', sans-serif;
+/* @end */
+
+
+/* @group Scaffolding Measurements */
+@containerWidth: 1200px;
+@primaryWidth:70%;
+@secondaryWidth:30%;
+/* @end */
+
+
+/* @group responsive breakpoints */
+@minWidthMobile: 320px;
+@maxWidthMobile: 500px;
+@minWidthTablet:@maxWidthMobile + 1px;
+@maxWidthTablet:980px;
+@minWidthRegScreen: @maxWidthTablet;
+@maxWidthRegScreen: @containerWidth;
+@minWidthLargeScreen: @maxWidthRegScreen + 1px;
+/* @end */
+
+
+/* @group MIXINS */ /* @end */
+
+
+/* @group RESETS & GLOBALS  */
+
+*{
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  outline:0 !important;
+}
+
+body{
+  color: @bodyColor;
+  font-family: @baseFont;
+  font-size:@fontSize;
+  line-height:@lineHeight;
+}
+
+/* @end  */
+
+
+/* @group SCAFFOLDING  */
+
+.wrapper {
+  display:block;
+  width:100%;
+  position:relative;
+  
+  &.header{
+    
+     .inner &{
+     } 
+    
+  }
+  
+  &.content{
+    
+    .inner &{
+     } 
+    
+  }
+  
+  &.footer{
+    
+  }
+  
+}
+
+
+.container {
+  width:100%;
+  display:block;
+  max-width:@containerWidth;
+  margin:0 auto;
+  position:relative;
+  background-color:transparent;  
+}
+
+
+/* @end */
+
+
+/* @group TYPOGRAPHY */
+
+
+.btn{
+  display:inline-block;
+  width:auto;
+  padding:8px 15px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  text-align: center;
+  color:#ccc;
+  
+  .primary &{
+    border:1px solid red;
+  }
+
+  &.btn-red{
+    background-color:darkred;
+    color:#fff;
+    
+    &:hover{
+      background-color:red;
+      color:#fff;
+    }
+    
+  }
+  
+  &.btn-full{
+    display:block;
+    width:100%;    
+  }
+  
+  &:hover{
+    
+  }
+  
+  &:visited{
+    
+  }
+  
+  
+}
+
+/* @end */
+
+
+/* @group NAVIGATION */
+
+nav{
+  display:block;
+  width:100%;
+  
+  
+  /* parent - nav */
+  ul{
+    padding-left:0;
+    display:block;
+    width:100%;
+    
+    
+    /* parent - nav ul */
+    li{
+      display:inline-block;
+      width:auto;
+      position:relative;
+      margin-left:-4px;
+      
+      
+      /* parent - nav ul li */
+      a{
+        display:block;
+        text-decoration: none;
+        line-height: @lineHeight;
+        font-family: @headingFont;
+        
+        /* parent - nav ul li a */
+        &:visited{
+        }
+        
+        /* parent - nav ul li a */
+        &:hover{
+          text-decoration: none;
+
+        }
+      }
+      
+      
+      /* parent - nav ul li */
+      &.active{
+      
+        /* parent - nav ul li.active */
+        a{
+          
+        }
+      }
+      
+      
+      /* parent - nav ul li */
+      &:first-child{
+              
+      }
+      
+      
+      /* parent - nav ul li */      
+      ul{
+       position:absolute;
+       top:100%;
+       left:0;
+       display:block;
+       width:100%;
+       z-index:9;
+       
+       /* parent - nav ul li ul */
+       li{
+         display:block;
+         width:100%;
+       }
+      }   
+    }
+  }
+}
+
+/* @end */
+
+
+/* @group FORMS */
+
+form{
+  display:block;
+  width:100%;
+  
+  /* parent - form */
+  ul{
+    padding-left:0
+  }
+  
+  /* parent - form */
+  li{
+    list-style:none;
+    display:block;
+    
+     /* parent - form li */    
+    &.left,
+    &.right{
+      display:inline-block;
+      vertical-align:top;
+      width:48.5%;
+    }
+    
+     /* parent - form li */
+    &.right{
+      float:right;
+    }
+  
+    
+  }
+  
+  /* parent - form */
+  label,
+  input{
+    display:block;
+    width:100%;
+    font-family: @baseFont;
+  }
+  
+  /* parent  form */
+  input[type="text"],
+  textarea,
+  input[type="tel"],
+  input[type="email"]{
+    border:1px solid #ddd;
+    padding:10px 4px;
+    
+    /* parent - form inputs */
+    &:focus{
+      border:1px solid #bbb;
+    }
+    
+  }
+  
+  /* parent - form */
+  button{
+    background-color:lightblue;
+    padding:10px;
+    color:#fff;
+    font-szie:20px;
+    border:0;
+    border-radius:5px;
+    font: @baseFont;
+    text-transform: uppercase;
+    
+    /* parent - form button */
+    &:hover{
+      background-color:blue;
+      color:#fff;
+    }        
+  }
+}
+
+
+/* @end */
