@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Template - Generic
- * Description: A full-width template with no sidebar
+ * Description: Generic Sub Page Template
  *
  * @package WordPress
  * @subpackage themename
