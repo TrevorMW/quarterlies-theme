@@ -11,9 +11,7 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <!--[if IE 8 ]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-<title>
-<?php echo site_global_description(); ?>
-</title>
+<title><?php echo site_global_description(); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico">
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -21,20 +19,19 @@
 </head>
 <body <?php body_class(); ?>>
 
-<div class="wrapper header" role="menubar">
-	<header class="container">
-		<div class="logo">
-			<a href="#">
-				<img src="" alt="" />
-			</a>
-			<h1 class="acc"></h1>
-		</div>
-		<nav class="main" role="navigation">
-
-		</nav>	
-	</header>
-</div>	
-
-<main class="wrapper" role="main">
-	<div class="container">
+	<div class="wrapper header" role="menubar">
+		<header class="container">
+			<div class="logo">
+				<a href="#">
+					<img src="<?php echo get_template_directory_uri(); ?>" alt="" />
+				</a>
+			</div>
+			<nav class="main" role="navigation">
+	
+			</nav>	
+		</header>
+	</div>	
+	
+	<main class="wrapper" role="main">
+		<div class="container">
 
