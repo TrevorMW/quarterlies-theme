@@ -13,7 +13,7 @@
 <!--[if IE 8 ]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
 <title><?php echo site_global_description(); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico">
+<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/assets/media/favicon.ico">
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <?php wp_head(); ?>
 </head>
@@ -27,11 +27,11 @@
 				</a>
 			</div>
 			<nav class="main" role="navigation">
-	
-			</nav>	
+
+			</nav>
 		</header>
-	</div>	
-	
+	</div>
+
 	<main class="wrapper" role="main">
 		<div class="container">
 
