@@ -3,12 +3,7 @@
  * @package WordPress
  * @subpackage themename
  */
-if ( $wp_query->max_num_pages > 1 ) : ?>
-<nav class="post-nav" role="navigation">
-  <div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older Posts', 'themename' ) ); ?></div>
-  <div class="nav-next"><?php previous_posts_link( __( 'Newer Posts <span class="meta-nav">&rarr;</span>', 'themename' ) ); ?></div>
-</nav>
-<?php endif; 
+
 
 if( have_posts() ){ // START THE LOOP. IF THERE ARE POSTS
 
