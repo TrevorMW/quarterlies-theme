@@ -1,227 +1,44 @@
-
-/* @group Base Fonts */
-@baseFont: serif;
-@headingFont: sans-serif;
-/* @end */
-
-/* @group MIXINS */ 
-	
-	
-/* @end */
-
-
-/* @group RESETS & GLOBALS  */
+@import 'variables';
 
 body{
   margin:0;
   padding:0;
-  
 }
 
-img{
-	width:100%;
-	height:auto;
-}
-
-.acc{
-	display:none;
-}
-
-/* @end  */
-
-
-/* @group SCAFFOLDING  */
-
-.wrap{
-	display: block;
-	
-	&.body{
-		
-	}
-	
-	&.mobile-nav{
-		
-	}
-}
-
-
-.wrapper {
-  display:block;
-  width:100%;
-  position:relative;
-  clear:both;
-   
-}
-
-
-.container {
-  width:100%;
-  display:block;
-  margin:0 auto;
-}
-
-
+/* @group SCAFFOLDING */
+@import 'scaffolding';
 /* @end */
 
+/* @group IMAGES */
+@import 'images';
+/* @end */
 
 /* @group TYPOGRAPHY */
-
-
-.btn{
-  display:inline-block;
-  width:auto;
-  padding:10px;
-  border:1px solid #ccc;
-  text-align: center;
-  color:#ccc;
-
-}
-
+@import 'typography';
 /* @end */
 
-
-/* @group NAVIGATION */
-
-nav{
-	display: block;
-	width:100%;
-	
-	&.main{
-		display: inherit;
-		width:inherit;
-		
-		& ul{
-			margin:0;
-			padding:0;
-		}
-		
-		& li{
-			display: inline-block;
-			width:auto;
-			margin:0;
-		}
-		
-		& a,
-		& a:visited{
-			display:block;
-			width:100%;
-			
-			&:hover{
-				
-			}
-		}
-	}
-	
-	footer &{
-		display: inherit;
-		width:inherit;
-		
-		& ul{
-			margin:0;
-			padding:0;
-		}
-		
-		& li{
-			display: inline-block;
-			width:auto;
-			margin:0;
-		}
-		
-		& a,
-		& a:visited{
-			display:block;
-			width:100%;
-			
-			&:hover{
-				
-			}
-		}
-	}
-	
-}
-
+/* @group TABLES */
+@import 'tables';
 /* @end */
-
 
 /* @group FORMS */
-
-form{
-	display: block;
-	width:100%;
-	
-	& ul,
-	& li,
-	& input,
-	& select,
-	& label{
-		display: inherit;
-		width:inherit;
-		padding:5px 0;
-	}
-	
-	& li{
-		padding-bottom:15px;
-		
-		&.submit{
-			text-align: right;
-		}
-	}
-	
-	& input{
-		padding:10px 5px;
-	}
-	
-	& button,
-	& input[type="submit"]{
-		display: inline-block;
-		width:auto;
-		padding:12px 25px;
-	}
-
-}
-
-
+@import 'forms';
 /* @end */
 
-
-
-/* RESPONSIVE */
-
-@media screen and (min-width: 1501px) 
-{
-  
-  
-}
-
-
-@media screen and (min-width: 1271px) and (max-width: 1500px) 
-{
- 
- 
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1270px) 
-{
- 
- 
-}
-
-@media screen and (min-width: 769px) and (max-width: 1025px) 
-{
- 
- 
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) 
-{
- 
- 
-}
-
-@media screen and (min-width: 300px) and (max-width: 480px) 
-{
- 
- 
-}
-
+/* @group BUTTONS */
+@import 'buttons';
 /* @end */
+
+/* @group BUTTONS */
+@import 'badges';
+/* @end */
+
+/* @group TYPOGRAPHY */
+@import 'navigation';
+/* @end */
+
+@import 'utilities';
+
+
+/* LIBS */
+@import 'animations';
