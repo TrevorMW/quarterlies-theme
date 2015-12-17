@@ -1,6 +1,5 @@
 ;(function( $, window, undefined )
 {
-
   // GENERIC TOOLSETS FOR BADASSERY IN FRONT END
 
   $.fn.popup = {
@@ -71,29 +70,54 @@
 
   $.fn.hero = {
     el:'',
-    aspect_ratio: .3,
+    aspect_ratio: '',
     init:function( el )
     {
       if( el[0] != undefined )
         this.el = el;
 
-      this.resize_hero();
+      this.aspect_ratio = this.initial_ratio();
 
-      $(window).resize( this, function( e )
+      if( this.aspect_ration != '' )
       {
-        e.data.resize_hero();
-      })
+        this.resize_hero();
+
+        $(window).resize( this, function( e )
+        {
+          $(window).width() <= 768 ? e.data.remove_height() : e.data.resize_hero() ;
+        })
+      }
     },
-    resize_hero:function()
+    resize_hero:function( func )
     {
       setTimeout(function( data )
       {
-        data.el.css('height', data.get_aspect_ratio_width() )
+        data.el.css('height', data.get_aspect_ratio_width() );
+
+        data.el.addClass('active')
+
       }, 300, this )
     },
     get_aspect_ratio_width:function()
     {
       return parseInt( $(window).width() * this.aspect_ratio );
+    },
+    remove_hero_size:function()
+    {
+      setTimeout(function( data )
+      {
+        data.el.css('height','' );
+      }, 300, this )
+    },
+    initial_ratio:function()
+    {
+      var img = this.el.closest('.hero-parent').find('[data-hero-img] img');
+
+      return parseFloat( img.attr('height') / img.attr('width') );
+    },
+    remove_height:function()
+    {
+      this.el.css( 'height', '' );
     }
   }
 
@@ -131,8 +155,8 @@
       })
     }
 
-    // INSTAFEED.JS SCRIPT
 
+    // INSTAFEED.JS SCRIPT
     if( $('#instafeed')[0] != undefined )
 		{
 			var feed = new Instafeed({
@@ -207,9 +231,8 @@
     },
     make_request: function( instance )
     {
-      var formData = this.el.serializeArray();
-
-      data = {};
+      var formData = this.el.serializeArray(),
+          data = {};
 
       for( var i = 0; formData.length > i; i++ )
       {
@@ -219,8 +242,8 @@
       data.action  = this.action;
       data.referer = data._wp_http_referer
 
-      if( this.pre_callback != '' && $.fn.callback_bank.pre_callbacks.hasOwnProperty( this.pre_callback ) )
-        data = $.fn.callback_bank.pre_callbacks[this.pre_callback]( data );
+      if( this.pre_callback != '' && $.fn.callback_bank.filters.hasOwnProperty( this.pre_callback ) )
+        data = $.fn.callback_bank.filters[this.pre_callback]( data );
 
       if( this.el.find('[data-progress]') != '' )
         progress.init( this.el.find('[data-progress]') );
@@ -236,8 +259,6 @@
         if( progress.el[0] != undefined )
           new_data.progress = progress;
 
-          console.log( $.fn.callback_bank.callbacks.hasOwnProperty( new_data.callback ), new_data.callback )
-
         if( $.fn.callback_bank.callbacks.hasOwnProperty( new_data.callback ) )
           $.fn.callback_bank.callbacks[new_data.callback]( new_data );
 
@@ -246,9 +267,34 @@
     }
   }
 
+  $.fn.wp_get = {
+    action:'',
+    init:function( action )
+    {
+      if( action != null )
+      {
+        this.action = action;
+      }
+    },
+    make_request: function( before, after_request )
+    {
+      data        = {};
+      data.action = this.action;
+
+      if( typeof before == 'function' )
+        data = before( data )
+
+      $.post( ajax_url, data, function( response )
+      {
+        typeof after_request == 'function' ? after_request( data, $.parseJSON( response ) ) : '' ;
+      });
+    }
+  }
+
   $.fn.callback_bank = {
-    pre_callbacks:
-    { // PRE_CALLBACKS **ALWAYS** NEED TO RETURN FORM DATA, REGARDLESS OF DOING ANYTHING WITH IT.
+    filters:
+    {
+      // PRE_CALLBACKS **ALWAYS** NEED TO RETURN FORM DATA, REGARDLESS OF DOING ANYTHING WITH IT.
       before_form_submit:function( form_data )
       {
         return data;
