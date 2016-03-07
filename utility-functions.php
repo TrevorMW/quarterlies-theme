@@ -140,84 +140,6 @@ function get_array_from_object( $array = array() )
 }
 
 
-add_editor_style('css/editor-style.css');
-
-function custom_tinymce_styles( $settings )
-{
-  $style_formats = array(
-    array(
-        'title' => 'Huge Blue Text',
-        'selector' => 'h1,h2,h3,h4,h5,h6',
-        'classes' => 'huge blue ',
-    ),
-    array(
-        'title' => 'Blue Text',
-        'selector' => 'h1,h2,h3,h4,h5,h6',
-        'classes' => 'blue',
-    ),
-    array(
-        'title' => 'Gray Text',
-        'selector' => 'h1,h2,h3,h4,h5,h6',
-        'classes' => 'gray',
-    ),
-    array(
-        'title' => 'White Text',
-        'selector' => 'h1,h2,h3,h4,h5,h6',
-        'classes' => 'white',
-    )
-  );
-
-  $settings['style_formats'] = json_encode( $style_formats );
-
-  if ( ! isset( $settings['extended_valid_elements'] ) )
-  {
-    $settings['extended_valid_elements'] = '';
-  }
-  else
-  {
-    $settings['extended_valid_elements'] .= ',';
-  }
-
-  if ( ! isset( $settings['custom_elements'] ) )
-  {
-    $settings['custom_elements'] = '';
-  }
-  else
-  {
-    $settings['custom_elements'] .= ',';
-  }
-
-  $settings['extended_valid_elements'] .= 'div[class|id|style|data-animation|data-fx]';
-  $settings['custom_elements']         .= 'div[class|id|style|data-animation|data-fx]';
-
-  return $settings;
-}
-add_filter( 'tiny_mce_before_init', 'custom_tinymce_styles' );
-
-function add_tinymce_styles_dropdown( $buttons )
-{
-	array_unshift( $buttons, 'styleselect' );
-	return $buttons;
-}
-add_filter('mce_buttons_2', 'add_tinymce_styles_dropdown');
-
-function allow_data_attributes_in_tinymce()
-{
-  global $allowedposttags;
-
-  $tags = array( 'div' );
-  $new_attributes = array( 'contenteditable' => array(), 'data-animation' => array(), 'data-fx' => array() );
-
-  foreach ( $tags as $tag )
-  {
-    if ( isset( $allowedposttags[ $tag ] ) && is_array( $allowedposttags[ $tag ] ) )
-        $allowedposttags[ $tag ] = array_merge( $allowedposttags[ $tag ], $new_attributes );
-  }
-}
-add_action( 'init', 'allow_data_attributes_in_tinymce' );
-
-
-add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 function var_template_include( $t )
 {
@@ -235,35 +157,6 @@ if( function_exists('acf_add_options_page') )
 		'capability'	=> 'edit_posts',
 		'redirect'		=> false
 	));
-}
-
-
-class Action_Name
-{
-  public $type;
-
-  public function __construct( $post )
-  {
-    if( is_object( $post ) )
-    {
-      if( $post->post_type == 'page' )
-      {
-        $type = str_replace( '-', '_', $post->post_name ).'_';
-      }
-      else if( is_shop() )
-      {
-        $type = 'shop_';
-      }
-      else
-      {
-        $type = str_replace( '-', '_', $post->post_type ).'_';
-      }
-
-      is_front_page() ? $type = 'front_' : '';
-
-      $this->type = $type;
-    }
-  }
 }
 
 
@@ -286,16 +179,17 @@ function add_style_sheets()
 		wp_enqueue_style( 'main', get_template_directory_uri().'/assets/css/style.less', 'screen' );
 	}
 }
-
 add_action('wp_enqueue_scripts', 'add_style_sheets');
 
 
-
+// IF ADMIN JS OR STYLES ARE NEEDED< YOU CAN USE THIS AS A TEMPLATE
 function load_custom_wp_admin_style()
 {
   wp_enqueue_style( 'admin-fixes', get_template_directory_uri().'/assets/css/admin-fixes.css', 'screen'  );
 }
-add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
+//add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
+
+
 
 /**
  *
@@ -316,12 +210,11 @@ function add_javascript()
 		is_page('press') ? wp_enqueue_script( 'sticky', get_template_directory_uri().'/assets/js/sticky.js') : '';
 	}
 }
-
 add_action('wp_enqueue_scripts', 'add_javascript');
 
 
 
-
+// ONLY NECCESARY FOR WOOCOMMERCE THEMES, UNCOMMENT IF NEEDED.
 function mgt_dequeue_styles_and_scripts()
 {
   if ( class_exists( 'woocommerce' ) )
@@ -333,8 +226,8 @@ function mgt_dequeue_styles_and_scripts()
     wp_deregister_script('select2');
   }
 }
-add_action( 'wp_enqueue_scripts', 'mgt_dequeue_stylesandscripts', 100 );
-
+//add_action( 'wp_enqueue_scripts', 'mgt_dequeue_stylesandscripts', 100 );
+//add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 
 /**
@@ -404,21 +297,6 @@ function admin_bar_replace_howdy($wp_admin_bar)
 add_filter('admin_bar_menu', 'admin_bar_replace_howdy', 25);
 
 
-/**
- * REGISTER SIDEBARS
- */
-function handcraftedwp_widgets_init()
-{
-	register_sidebar( array (
-		'name' => __( 'Sidebar', 'themename' ),
-		'id' => 'sidebar',
-		'before_widget' => '<aside class="widget %2$s" role="complementary">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h4 class="widget-title">',
-		'after_title' => '</h4>',
-	) );
-}
-add_action( 'init', 'handcraftedwp_widgets_init' );
 
 
 function change_search_form( $form )
@@ -498,369 +376,81 @@ function custom_login_form( $args = array() )
 }
 
 
+// ADDS SUPPORT FOR CUSTOM EDITOR STYLES THAT LET CLIENTS USE THE WYSIWYG EDITOR BETTER. UNCOMMENT IF YOU NEED THEM.
 
-/**
- * Outputs a checkout/address form field.
- *
- * @subpackage  Forms
- * @param string $key
- * @param mixed $args
- * @param string $value (default: null)
- * @todo This function needs to be broken up in smaller pieces
- */
-function woocommerce_form_field( $key, $args, $value = null )
+//add_editor_style('css/editor-style.css');
+
+function custom_tinymce_styles( $settings )
 {
-  $after = '';
-
-  $defaults = array(
-    'type'              => 'text',
-    'label'             => '',
-    'description'       => '',
-    'placeholder'       => '',
-    'maxlength'         => false,
-    'required'          => false,
-    'id'                => $key,
-    'class'             => array(),
-    'label_class'       => array(),
-    'input_class'       => array(),
-    'return'            => false,
-    'options'           => array(),
-    'custom_attributes' => array(),
-    'validate'          => array(),
-    'default'           => '',
+  $style_formats = array(
+    array(
+        'title' => 'Huge Blue Text',
+        'selector' => 'h1,h2,h3,h4,h5,h6',
+        'classes' => 'huge blue ',
+    ),
+    array(
+        'title' => 'Blue Text',
+        'selector' => 'h1,h2,h3,h4,h5,h6',
+        'classes' => 'blue',
+    ),
+    array(
+        'title' => 'Gray Text',
+        'selector' => 'h1,h2,h3,h4,h5,h6',
+        'classes' => 'gray',
+    ),
+    array(
+        'title' => 'White Text',
+        'selector' => 'h1,h2,h3,h4,h5,h6',
+        'classes' => 'white',
+    )
   );
 
-  $args = wp_parse_args( $args, $defaults );
-  $args = apply_filters( 'woocommerce_form_field_args', $args, $key, $value );
+  $settings['style_formats'] = json_encode( $style_formats );
 
-  if ( $args['required'] )
+  if ( ! isset( $settings['extended_valid_elements'] ) )
   {
-    $args['class'][] = 'validate-required';
-    $required        = ' <abbr class="required" title="' . esc_attr__( 'required', 'woocommerce'  ) . '">*</abbr>';
+    $settings['extended_valid_elements'] = '';
   }
   else
   {
-    $required = '';
+    $settings['extended_valid_elements'] .= ',';
   }
 
-  $args['maxlength'] = ( $args['maxlength'] ) ? 'maxlength="' . absint( $args['maxlength'] ) . '"' : '';
-
-  if ( is_string( $args['label_class'] ) )
+  if ( ! isset( $settings['custom_elements'] ) )
   {
-    $args['label_class'] = array( $args['label_class'] );
-  }
-
-  if ( is_null( $value ) )
-  {
-    $value = $args['default'];
-  }
-
-  // Custom attribute handling
-  $custom_attributes = array();
-
-  if ( ! empty( $args['custom_attributes'] ) && is_array( $args['custom_attributes'] ) )
-  {
-    foreach ( $args['custom_attributes'] as $attribute => $attribute_value )
-    {
-      $custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $attribute_value ) . '"';
-    }
-  }
-
-  if ( ! empty( $args['validate'] ) )
-  {
-    foreach( $args['validate'] as $validate )
-    {
-      $args['class'][] = 'validate-' . $validate;
-    }
-  }
-
-  $field    = '';
-  $label_id = $args['id'];
-  $field_container = '<li class="%1$s" id="%2$s">%3$s</li>';
-
-  switch ( $args['type'] )
-  {
-    case 'country' :
-
-      $countries = $key == 'shipping_country' ? WC()->countries->get_shipping_countries() : WC()->countries->get_allowed_countries();
-
-      if ( sizeof( $countries ) == 1 )
-      {
-        $field .= '<strong>' . current( array_values( $countries ) ) . '</strong>';
-        $field .= '<input type="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . current( array_keys($countries ) ) . '" ' . implode( ' ', $custom_attributes ) . ' class="country_to_state" />';
-      }
-      else
-      {
-        $field = '<select name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" class="country_to_state country_select ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'" ' . implode( ' ', $custom_attributes ) . '>'
-                . '<option value="">'.__( 'Select a country&hellip;', 'woocommerce' ) .'</option>';
-
-        foreach ( $countries as $ckey => $cvalue )
-        {
-          $field .= '<option value="' . esc_attr( $ckey ) . '" '.selected( $value, $ckey, false ) .'>'.__( $cvalue, 'woocommerce' ) .'</option>';
-        }
-
-        $field .= '</select>';
-        $field .= '<noscript><input type="submit" name="woocommerce_checkout_update_totals" value="' . esc_attr__( 'Update country', 'woocommerce' ) . '" /></noscript>';
-      }
-
-    break;
-
-    case 'state' :
-
-      /* Get Country */
-      $country_key = $key == 'billing_state' ? 'billing_country' : 'shipping_country';
-      $current_cc  = WC()->checkout->get_value( $country_key );
-      $states      = WC()->countries->get_states( $current_cc );
-
-      if ( is_array( $states ) && empty( $states ) )
-      {
-        $field_container = '<p class="form-row %1$s" id="%2$s" style="display: none">%3$s</p>';
-        $field          .= '<input type="hidden"
-                                   class="hidden"
-                                   name="' . esc_attr( $key )  . '"
-                                   id="' . esc_attr( $args['id'] ) . '"
-                                   value="" ' . implode( ' ', $custom_attributes ) . '
-                                   placeholder="' . esc_attr( $args['placeholder'] ) . '" />';
-      }
-      elseif ( is_array( $states ) )
-      {
-        $field .= '<select name="' . esc_attr( $key ) . '"
-                           id="' . esc_attr( $args['id'] ) . '"
-                           class="state_select ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'" ' . implode( ' ', $custom_attributes ) . '
-                           placeholder="' . esc_attr( $args['placeholder'] ) . '">
-
-                    <option value="">'.__( 'Select a state&hellip;', 'woocommerce' ) .'</option>';
-
-        foreach ( $states as $ckey => $cvalue )
-        {
-          $field .= '<option value="' . esc_attr( $ckey ) . '" '.selected( $value, $ckey, false ) .'>'.__( $cvalue, 'woocommerce' ) .'</option>';
-        }
-
-        $field .= '</select>';
-      }
-      else
-      {
-        $field .= '<input type="text"
-                          class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                          value="' . esc_attr( $value ) . '"
-                          placeholder="' . esc_attr( $args['placeholder'] ) . '"
-                          name="' . esc_attr( $key ) . '"
-                          id="' . esc_attr( $args['id'] ) . '" ' . implode( ' ', $custom_attributes ) . ' />';
-
-      }
-
-    break;
-
-
-    case 'textarea' :
-
-      $field .= '<textarea name="' . esc_attr( $key ) . '"
-                           class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                           id="' . esc_attr( $args['id'] ) . '"
-                           placeholder="' . esc_attr( $args['placeholder'] ) . '" '. implode( ' ', $custom_attributes ) . '>'. esc_textarea( $value  ) .'</textarea>';
-
-    break;
-
-
-    case 'checkbox' :
-
-      $field = '<label class="checkbox ' . implode( ' ', $args['label_class'] ) .'" ' . implode( ' ', $custom_attributes ) . '>
-                <input type="' . esc_attr( $args['type'] ) . '"
-                       class="input-checkbox ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                       name="' . esc_attr( $key ) . '"
-                       id="' . esc_attr( $args['id'] ) . '"
-                       value="1" '.checked( $value, 1, false ) .' /> '. $args['label'] . $required . '</label>';
-
-    break;
-
-
-    case 'password' :
-
-      $field .= '<input type="password"
-                        class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                        name="' . esc_attr( $key ) . '"
-                        id="' . esc_attr( $args['id'] ) . '"
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '"
-                        value="' . esc_attr( $value ) . '" ' . implode( ' ', $custom_attributes ) . ' />';
-
-    break;
-
-
-    case 'text' :
-
-      $field .= '<input type="text"
-                        class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                        name="' . esc_attr( $key ) . '"
-                        id="' . esc_attr( $args['id'] ) . '"
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" '.$args['maxlength'].'
-                        value="' . esc_attr( $value ) . '" ' . implode( ' ', $custom_attributes ) . '
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" />';
-
-    break;
-
-
-    case 'email' :
-
-      $field .= '<input type="email"
-                        class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                        name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '"
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" '.$args['maxlength'].'
-                        value="' . esc_attr( $value ) . '" ' . implode( ' ', $custom_attributes ) . '
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" />';
-
-    break;
-
-
-    case 'tel' :
-
-      $field .= '<input type="tel"
-                        class="input-text ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                        name="' . esc_attr( $key ) . '"
-                        id="' . esc_attr( $args['id'] ) . '"
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" '.$args['maxlength'].'
-                        value="' . esc_attr( $value ) . '" ' . implode( ' ', $custom_attributes ) . '
-                        placeholder="' . esc_attr( $args['placeholder'] ) . '" />';
-
-    break;
-
-
-    case 'select' :
-
-      $options = $field = '';
-
-      if ( ! empty( $args['options'] ) )
-      {
-        foreach ( $args['options'] as $option_key => $option_text )
-        {
-          if ( "" === $option_key )
-          {
-            // If we have a blank option, select2 needs a placeholder
-            if ( empty( $args['placeholder'] ) )
-            {
-              $args['placeholder'] = $option_text ? $option_text : __( 'Choose an option', 'woocommerce' );
-            }
-
-            $custom_attributes[] = 'data-allow_clear="true"';
-          }
-
-          $options .= '<option value="' . esc_attr( $option_key ) . '" '. selected( $value, $option_key, false ) . '>' . esc_attr( $option_text ) .'</option>';
-        }
-
-        $field .= '<select name="' . esc_attr( $key ) . '"
-                           id="' . esc_attr( $args['id'] ) . '"
-                           class="select '.esc_attr( implode( ' ', $args['input_class'] ) ) .'" ' . implode( ' ', $custom_attributes ) . '
-                           placeholder="' . esc_attr( $args['placeholder'] ) . '">' . $options . '</select>';
-      }
-
-    break;
-
-
-    case 'radio' :
-
-      $label_id = current( array_keys( $args['options'] ) );
-
-      if ( ! empty( $args['options'] ) )
-      {
-        foreach ( $args['options'] as $option_key => $option_text )
-        {
-          $field .= '<input type="radio"
-                            class="input-radio ' . esc_attr( implode( ' ', $args['input_class'] ) ) .'"
-                            value="' . esc_attr( $option_key ) . '"
-                            name="' . esc_attr( $key ) . '"
-                            id="' . esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ) . '"' . checked( $value, $option_key, false ) . ' />';
-
-          $field .= '<label for="' . esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ) . '"
-                            class="radio ' . implode( ' ', $args['label_class'] ) .'">' . $option_text . '</label>';
-        }
-      }
-
-    break;
-
-
-  }
-
-  if ( ! empty( $field ) )
-  {
-    $field_html = '';
-
-    if ( $args['label'] && 'checkbox' != $args['type'] )
-    {
-      //$field_html .= '<label for="' . esc_attr( $label_id ) . '" class="' . esc_attr( implode( ' ', $args['label_class'] ) ) .'">' . $args['label'] . $required . '</label>';
-    }
-
-    $field_html .= $field;
-
-    if ( $args['description'] )
-    {
-      $field_html .= '<span class="description">' . esc_html( $args['description'] ) . '</span>';
-    }
-
-    $container_class = esc_attr( implode( ' ', $args['class'] ) );
-    $container_id    = esc_attr( $args['id'] ) . '_field';
-
-
-    $field = sprintf( $field_container, $container_class, $container_id, $field_html ) . $after;
-  }
-
-  $field = apply_filters( 'woocommerce_form_field_' . $args['type'], $field, $key, $args, $value );
-
-  if ( $args['return'] )
-  {
-    return $field;
+    $settings['custom_elements'] = '';
   }
   else
   {
-    echo $field;
+    $settings['custom_elements'] .= ',';
   }
+
+  $settings['extended_valid_elements'] .= 'div[class|id|style|data-animation|data-fx]';
+  $settings['custom_elements']         .= 'div[class|id|style|data-animation|data-fx]';
+
+  return $settings;
 }
+//add_filter( 'tiny_mce_before_init', 'custom_tinymce_styles' );
 
-class Woo_form_field
+function add_tinymce_styles_dropdown( $buttons )
 {
-  private static $defaults;
+	array_unshift( $buttons, 'styleselect' );
+	return $buttons;
+}
+//add_filter('mce_buttons_2', 'add_tinymce_styles_dropdown');
 
-  public $args;
-  public $required = false;
+function allow_data_attributes_in_tinymce()
+{
+  global $allowedposttags;
 
-  public function __construct( $key, $value = null, $args )
+  $tags = array( 'div' );
+  $new_attributes = array( 'contenteditable' => array(), 'data-animation' => array(), 'data-fx' => array() );
+
+  foreach ( $tags as $tag )
   {
-    $this->defaults = array(
-      'type'              => 'text',
-      'label'             => '',
-      'description'       => '',
-      'placeholder'       => '',
-      'maxlength'         => false,
-      'required'          => false,
-      'id'                => $key,
-      'class'             => array(),
-      'label_class'       => array(),
-      'input_class'       => array(),
-      'return'            => false,
-      'options'           => array(),
-      'custom_attributes' => array(),
-      'validate'          => array(),
-      'default'           => '',
-    );
-
-    if( $args )
-    {
-      $this->args = apply_filters( 'woocommerce_form_field_args', wp_parse_args( $args, $defaults ), $key, $value );
-    }
-
-  }
-
-  public function build_field( $key, $value = null )
-  {
-
-  }
-
-  public function set_required( $required )
-  {
-    $this->required = $required;
-  }
-
-  public function is_required()
-  {
-    return $this->required;
+    if ( isset( $allowedposttags[ $tag ] ) && is_array( $allowedposttags[ $tag ] ) )
+        $allowedposttags[ $tag ] = array_merge( $allowedposttags[ $tag ], $new_attributes );
   }
 }
+//add_action( 'init', 'allow_data_attributes_in_tinymce' );
 
