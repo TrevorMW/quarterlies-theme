@@ -5,40 +5,4 @@ body{
   padding:0;
 }
 
-/* @group SCAFFOLDING */
-@import 'scaffolding';
-/* @end */
-
-/* @group IMAGES */
-@import 'images';
-/* @end */
-
-/* @group TYPOGRAPHY */
-@import 'typography';
-/* @end */
-
-/* @group TABLES */
-@import 'tables';
-/* @end */
-
-/* @group FORMS */
-@import 'forms';
-/* @end */
-
-/* @group BUTTONS */
-@import 'buttons';
-/* @end */
-
-/* @group BUTTONS */
-@import 'badges';
-/* @end */
-
-/* @group TYPOGRAPHY */
-@import 'navigation';
-/* @end */
-
 @import 'utilities';
-
-
-/* LIBS */
-@import 'animations';
