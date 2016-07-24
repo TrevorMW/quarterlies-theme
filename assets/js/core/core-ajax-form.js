@@ -57,7 +57,7 @@
     confirmFormRequest: function() {
       return this.form.confirm !== false ? confirm( this.form.confirm ) : true ;
     },
-    makeRequest: function( inst, ajax ) {
+    makeRequest: function( inst ) {
       $(document).trigger('loader:show').trigger('formMsg:clear');
 
       // Ajax POST call using native DW library.
