@@ -10,12 +10,9 @@
     $(document).trigger('core:resize', e);
   });
 
-  $(document).on( 'core:load', function(){
-    alert('core loaded');
+  $(document).on( 'core:load core:asyncLoad', function( e ) {
+    var ajaxForm = new AjaxForm( wpAjax );
+    ajaxForm.setObservers();
   });
-
-  $(document).on( 'core:asyncLoad', function(){
-    alert('core loaded');
-  })
 
 })( jQuery, window );

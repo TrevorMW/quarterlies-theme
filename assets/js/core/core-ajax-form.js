@@ -92,10 +92,4 @@
     }
   };
 
-
-  $(document).on( 'core:load core:asyncLoad', function( e ) {
-    var ajaxForm = new AjaxForm( wpAjax );
-    ajaxForm.setObservers();
-  });
-
 })(jQuery, window );
