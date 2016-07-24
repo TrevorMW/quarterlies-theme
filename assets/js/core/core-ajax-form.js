@@ -5,25 +5,17 @@
  * @copyright   Copyright © 2016 Blue Acorn.
  */
 
-(function (root, factory) {
-  if (typeof exports === 'object') {
-    module.exports = factory( window.jQuery );
-  } else if ( typeof define === 'function' && define.amd ) {
-    define(['jquery' ], function( jquery ) {
-      return (factory( jquery ));
-    });
-  }
-}(this, function ($) {
+;(function ($, window, undefined ) {
 
   var AjaxForm = {
-    form: {
+    form:{
       el: null,
       action: null,
       confirm: false,
       submit: null,
       url:null,
     },
-    data: {
+    data:{
       formData: null
     },
     flags:{
@@ -91,5 +83,4 @@
     AjaxForm.setObservers( wpAjax );
   });
 
-  return AjaxForm;
-}));
+})(jQuery, window );

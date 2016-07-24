@@ -4,6 +4,17 @@
  * @subpackage themename
  */
 
+// LOAD CLASSES JIT
+spl_autoload_register( function( $className )
+{
+  $classDir  = realpath( './assets/classes/' );
+  $classFile = '/class-' . str_replace( '_', '-', strtolower( $className ) ) . '.php';
+
+  if( file_exists( $classDir . $classFile ) )
+  {
+    require_once $classDir . $classFile;
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// START UTILITY FUNCTIONS ///////////////////////////////////////

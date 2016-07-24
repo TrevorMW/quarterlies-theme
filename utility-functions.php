@@ -171,6 +171,14 @@ function add_javascript()
 
 	if( !is_admin() )
 	{
+    wp_enqueue_script('requirejs', '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js');
+
+    $app_base = get_template_directory_uri() . '/js';
+    wp_localize_script( 'requirejs', 'require', array(
+      'baseUrl' => $app_base,
+      'deps'    => array( $app_base . '/core.js')
+    ));
+
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
 
