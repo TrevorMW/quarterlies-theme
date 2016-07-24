@@ -8,8 +8,8 @@
 (function (root, factory) {
   if (typeof exports === 'object') {
     module.exports = factory( window.jQuery );
-  } else if (typeof define === 'function' && define.amd) {
-    define(['jquery', 'baCore', 'ajaxJSON', 'validator' ], function( jquery ) {
+  } else if ( typeof define === 'function' && define.amd ) {
+    define(['jquery' ], function( jquery ) {
       return (factory( jquery ));
     });
   }
@@ -21,48 +21,42 @@
       action: null,
       confirm: false,
       submit: null,
-      invalidFields:null
+      url:null,
     },
     data: {
-      formData: null,
-      dataTarget: null
+      formData: null
     },
     flags:{
       canSubmit:false
     },
-    init: function( form ) {
+    init: function( form, url ) {
       if (form.length > 0) {
         this.form.el     = form;
         this.form.submit = form.find('button[type="submit"]');
         this.form.action = form.data('action');
+        this.form.url    = url;
 
         if( form.data('confirm') !== undefined ){
           this.form.confirm = form.data('confirm');
         }
       }
 
-      // Validate form using native DW $.validator plugin
-      var result = validator.initForm( this.form.el );
+      this.collectData();
 
-      if( result.errorList.length <= 0 ){
-        this.collectData();
-        this.flags.canSubmit = this.confirmFormRequest();
-      }
-
-      if( this.flags.canSubmit ){
-        this.makeRequest( this, ajax );
+      if( this.confirmFormRequest() ){
+        this.makeRequest( this );
       } else {
         $(document).trigger('loader:hide');
       }
     },
-    setObservers: function() {
+    setObservers: function( ajax_url ) {
       $(document).on('submit', '[data-ajax-form]', function(e) {
         e.preventDefault();
         var form    = $(this),
           formMsg = form.find('[data-form-msg]');
 
         $(document).trigger( 'formMsg:init', formMsg );
-        AjaxForm.init( $(this) );
+        AjaxForm.init( $(this), ajax_url );
       });
     },
     collectData: function() {
@@ -77,7 +71,8 @@
       // Ajax POST call using native DW library.
       $.ajax({
         method:'POST',
-        url:this.form.action,
+        action:this.form.action,
+        url:this.form.url,
         data:this.data.formData,
         success:this.formSuccess
       });
@@ -91,8 +86,9 @@
     }
   };
 
-  $(document).on( "core:load",  function() {
-    AjaxForm.setObservers( ajax, validator );
+  $(document).on( "core:load core:asyncLoad", function() {
+    console.log( wpAjax );
+    AjaxForm.setObservers( wpAjax );
   });
 
   return AjaxForm;

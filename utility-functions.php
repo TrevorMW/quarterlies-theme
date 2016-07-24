@@ -172,6 +172,10 @@ function add_javascript()
 	{
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
+
+    wp_localize_script( 'coreJS', 'wpAjax', array(
+      'ajax_url' => 'wp-content/themes/BasicWpTheme/ajax.php'
+    ));
   }
 }
 add_action('wp_enqueue_scripts', 'add_javascript');
