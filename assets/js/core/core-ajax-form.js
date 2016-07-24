@@ -91,7 +91,7 @@
     }
   }
 
-  $(document ).on( 'core:load', function(){
+  $(document).on( 'ready', function(){
     var ajaxForm = new AjaxForm( core.ajaxUrl );
 
     console.log( ajaxForm, core.ajaxUrl );
