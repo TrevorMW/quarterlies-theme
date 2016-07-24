@@ -1,23 +1,25 @@
+//
+//if (typeof jQuery === 'function') {
+//  define( 'jquery', function ()
+//  {
+//    return jQuery;
+//  });
+//}
+//
+//requirejs.config({
+//  baseUrl: core.baseUrl,
+//  deps: [ "AjaxForm" ],
+//  paths: {
+//    AjaxForm: "core-ajax-form",
+//  }
+//});
+//
 
-if (typeof jQuery === 'function') {
-  define( 'jquery', function ()
-  {
-    return jQuery;
-  });
-}
 
-requirejs.config({
-  baseUrl: core.baseUrl,
-  deps: [ "AjaxForm" ],
-  paths: {
-    AjaxForm: "core-ajax-form",
-  }
-});
-
-
-define( ["jquery"], function( $ )
+;(function( $, window, undefined )
 {
-  var AjaxForm = require('AjaxForm');
+  console.log( core.ajaxUrl );
+  //var AjaxForm = require('AjaxForm');
 
   // DEFINED GLOBAL EVENTS THAT CAN BE HOOKED INTO THROUGHOUT ALL LOADED JS.
   $(document).ready(function( e ){
@@ -30,11 +32,12 @@ define( ["jquery"], function( $ )
   });
 
   $(document).on( 'ready', function( e ) {
-    var ajaxForm = new AjaxForm( wpAjax );
+    var ajaxForm = new AjaxForm( core.ajaxUrl );
 
-    console.log( ajaxForm )
+    console.log( ajaxForm, core.ajaxUrl );
     ajaxForm.setObservers();
   });
-});
+
+})(jQuery, window );
 
 
