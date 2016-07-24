@@ -1,18 +1,15 @@
 /**
- * @package     core-ajax-form
+ * @package     Blueacorn/AjaxForm
  * @version     1.0
- * @author      Trevor Wagner
+ * @author      Blue Acorn <code@blueacorn.com>
+ * @copyright   Copyright © 2016 Blue Acorn.
  */
 
-(function (root, factory)
-{
-  if (typeof exports === 'object')
-  {
+(function (root, factory) {
+  if (typeof exports === 'object') {
     module.exports = factory( window.jQuery );
-  }
-  else if ( typeof define === 'function' && define.amd )
-  {
-    define( ['jquery'], function( jquery ) {
+  } else if (typeof define === 'function' && define.amd) {
+    define(['jquery', 'baCore', 'ajaxJSON', 'validator' ], function( jquery ) {
       return (factory( jquery ));
     });
   }
@@ -33,16 +30,13 @@
     flags:{
       canSubmit:false
     },
-    init: function( form, ajax, validator )
-    {
-      if (form.length > 0)
-      {
+    init: function( form ) {
+      if (form.length > 0) {
         this.form.el     = form;
         this.form.submit = form.find('button[type="submit"]');
         this.form.action = form.data('action');
 
-        if( form.data('confirm') !== undefined )
-        {
+        if( form.data('confirm') !== undefined ){
           this.form.confirm = form.data('confirm');
         }
       }
@@ -50,29 +44,25 @@
       // Validate form using native DW $.validator plugin
       var result = validator.initForm( this.form.el );
 
-      if( result.errorList.length <= 0 )
-      {
+      if( result.errorList.length <= 0 ){
         this.collectData();
         this.flags.canSubmit = this.confirmFormRequest();
       }
 
-      if( this.flags.canSubmit )
-      {
+      if( this.flags.canSubmit ){
         this.makeRequest( this, ajax );
-      }
-      else
-      {
+      } else {
         $(document).trigger('loader:hide');
       }
     },
-    setObservers: function( ajax, validator ) {
-      $(document).on('submit', '[data-ajax-form]', { ajax:ajax, validator:validator }, function(e) {
+    setObservers: function() {
+      $(document).on('submit', '[data-ajax-form]', function(e) {
         e.preventDefault();
         var form    = $(this),
           formMsg = form.find('[data-form-msg]');
 
         $(document).trigger( 'formMsg:init', formMsg );
-        AjaxForm.init( $(this), ajax, validator );
+        AjaxForm.init( $(this) );
       });
     },
     collectData: function() {
@@ -85,12 +75,11 @@
       $(document).trigger('loader:show').trigger('formMsg:clear');
 
       // Ajax POST call using native DW library.
-      $.ajax.({
+      $.ajax({
         method:'POST',
         url:this.form.action,
         data:this.data.formData,
-        success:this.formSuccess,
-        error:this.formError
+        success:this.formSuccess
       });
     },
     formSuccess:function( resp ){
@@ -99,15 +88,11 @@
       if( typeof resp == 'object' ){
         $(document).trigger('formMsg:show', resp );
       }
-    },
-    formError:function( resp ){
-
     }
   };
 
-  $(document).on("core:load",function()
-  {
-    AjaxForm.setObservers();
+  $(document).on( "core:load",  function() {
+    AjaxForm.setObservers( ajax, validator );
   });
 
   return AjaxForm;

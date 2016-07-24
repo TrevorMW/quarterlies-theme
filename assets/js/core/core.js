@@ -11,10 +11,4 @@
     $(document).trigger('core:resize');
   });
 
-  $(document ).on( 'core:load', function()
-  {
-    var ajax  = require('core-ajax-form'),
-        async = require('core-async-content');
-  });
-
 })( jQuery, window );
