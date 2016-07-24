@@ -174,7 +174,7 @@ function add_javascript()
     $app_base = get_template_directory_uri() . '/assets/js';
     wp_localize_script( 'requirejs', 'require', array(
       'baseUrl' => $app_base,
-      'deps'    => array( $app_base . '/core.js');
+      'deps'    => array( $app_base . '/core.js')
     ));
 
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js' );
