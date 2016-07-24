@@ -26,8 +26,7 @@
       confirm: false,
       submit: null,
       url:null
-    },
-      data  = { formData: null },
+    }, data  = { formData: null },
       flags = { canSubmit:false  };
 
     return this;

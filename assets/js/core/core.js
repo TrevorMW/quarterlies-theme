@@ -17,8 +17,7 @@ requirejs.config({
 
 define( ["jquery"], function( $ )
 {
-  var ajax = require('AjaxForm');
-
+  var AjaxForm = require('AjaxForm');
 
   // DEFINED GLOBAL EVENTS THAT CAN BE HOOKED INTO THROUGHOUT ALL LOADED JS.
   $(document).ready(function( e ){
@@ -30,7 +29,7 @@ define( ["jquery"], function( $ )
     $(document).trigger('core:resize', e);
   });
 
-  $(document).on( 'core:load core:asyncLoad', function( e ) {
+  $(document).on( 'ready', function( e ) {
     var ajaxForm = new AjaxForm( wpAjax );
     ajaxForm.setObservers();
   });
