@@ -171,7 +171,7 @@ function add_javascript()
 
 	if( !is_admin() )
 	{
-    wp_enqueue_script( 'requirejs', '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js' );
+    //wp_enqueue_script( 'requirejs', '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js' );
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js' );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
 
