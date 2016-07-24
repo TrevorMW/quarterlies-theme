@@ -144,6 +144,7 @@ function add_style_sheets()
 	{
 		wp_enqueue_style( 'reset', get_template_directory_uri().'/style.css', 'screen'  );
 		wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen' );
+    wp_enqueue_style( 'core', get_template_directory_uri().'/assets/static/css/core.css', 'screen' );
 		wp_enqueue_style( 'main', get_template_directory_uri().'/assets/static/css/style.css', 'screen' );
 	}
 }
