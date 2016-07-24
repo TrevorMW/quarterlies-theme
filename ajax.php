@@ -17,20 +17,16 @@ if( !isset( $_POST['action']) ){
   $ajaxAllowed = false;
 }
 
-//relative to where your plugin is located
-require_once('../../../../wp-load.php');
+require_once( ABSPATH . '/wp-admin/wp-load.php' );
 
-//Typical headers
+// Typical headers
 header('Content-Type: text/html');
 send_nosniff_header();
-
-//Disable caching
 header('Cache-Control: no-cache');
 header('Pragma: no-cache');
 
 $action = esc_attr( $_POST['action'] );
 
-//A bit of security
 $allowed_actions = array(
   'load_home_form',
 );
@@ -38,14 +34,7 @@ $allowed_actions = array(
 if( $ajaxAllowed ){
   if( in_array( $action, $allowed_actions ) )
   {
-    if( is_user_logged_in() )
-    {
-      do_action( 'plugin_name_ajax_' . $action );
-    }
-    else
-    {
-      do_action( 'plugin_name_ajax_nopriv_' . $action );
-    }
+    is_user_logged_in() ? do_action( 'wp_ajax_' . $action ) : do_action( 'wp_ajax_nopriv_' . $action );
   }
   else
   {
