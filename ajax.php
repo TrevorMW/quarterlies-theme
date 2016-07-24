@@ -18,7 +18,7 @@ if( !isset( $_POST['action']) ){
 }
 
 //relative to where your plugin is located
-require_once('../../../../../wp-load.php');
+require_once('../../../../wp-load.php');
 
 //Typical headers
 header('Content-Type: text/html');
