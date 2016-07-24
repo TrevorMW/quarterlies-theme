@@ -19,7 +19,7 @@ gulp.task( 'coreSass', function () {
 });
 
 gulp.task( 'themeSass', function () {
-  return gulp.src( scssFiles + 'theme-style.scss' ).pipe( sass( sassOptions ).on( 'error', sass.logError ) ).pipe( gulp.dest( scssDest ) )
+  return gulp.src( scssFiles + 'style.scss' ).pipe( sass( sassOptions ).on( 'error', sass.logError ) ).pipe( gulp.dest( scssDest ) )
 });
 
 // ADMIN SASS COMPILATION, DISABLED BY DEFAULT, AS NOT NEEDED IN THEME, NORMALLY
