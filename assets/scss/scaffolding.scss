@@ -1,11 +1,5 @@
 @import 'variables';
-@import "bourbon";
-
-*{
-  box-sizing:border-box;
-  text-decoration:none;
-  outline:0 !important;
-}
+@import 'bourbon';
 
 html { font-size: 62.5%; }
 
@@ -35,17 +29,23 @@ body{
 
 .wrapper{
   position: relative;
+  border:1px solid red;
+}
+
+.table{
+  display:table;
+  table-layout:fixed;
 }
 
 .container{
   max-width:1180px;
   margin: 0 auto;
   min-height:50px;
-}
+  border:1px solid blue;
 
-.table{
-  display:table;
-  table-layout:fixed;
+  &.table{
+    margin: 0 auto;
+  }
 }
 
 .table-cell{

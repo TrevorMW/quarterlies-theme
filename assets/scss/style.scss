@@ -2,17 +2,21 @@
 
 .wrapper{
 
-  header &,
-  footer &{
+  header&,
+  footer&{
     padding:5px 0;
   }
 
-  header &{
+  header&{
     border-bottom:1px solid #ddd;
   }
 
-  footer &{
+  footer&{
     border-top:1px solid #ddd;
+  }
+
+  main&{
+    padding:30px 0;
   }
 }
 
@@ -23,6 +27,5 @@
 .table{
 
 }
-
 
 @import 'utilities';
