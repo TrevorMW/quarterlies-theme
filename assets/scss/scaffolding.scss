@@ -46,6 +46,10 @@ body{
   &.table{
     margin: 0 auto;
   }
+
+  @media screen and ( $below-1180 ){
+    max-width:1024px;
+  }
 }
 
 .table-cell{
