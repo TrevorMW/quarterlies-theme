@@ -175,6 +175,8 @@ function add_javascript()
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js' );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
 
+    wp_enqueue_script( 'core-ajax',  get_template_directory_uri().'/assets/static/js/core-ajax-form.js');
+
     wp_localize_script( 'coreJS', 'core', array(
       'ajax_url' => get_template_directory() . wp_get_theme() . '/ajax.php',
       'baseUrl' => $app_base,

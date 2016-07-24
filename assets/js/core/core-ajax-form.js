@@ -4,19 +4,7 @@
  * @author     Trevor Wagner
  */
 
-(function (root, factory)
-{
-  if (typeof exports === 'object')
-  {
-    module.exports = factory( window.jQuery );
-  }
-  else if ( typeof define === 'function' && define.amd )
-  {
-    define( ['jquery'], function( jquery ) {
-      return (factory( jquery ));
-    });
-  }
-}( this, function ($) {
+;(function ( $, window, undefined ) {
 
   var AjaxForm = function(){
 
@@ -103,6 +91,5 @@
     }
   }
 
-  return AjaxForm;
 
-}));
+})( jQuery, window );

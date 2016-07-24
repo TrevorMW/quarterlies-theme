@@ -31,6 +31,8 @@ define( ["jquery"], function( $ )
 
   $(document).on( 'ready', function( e ) {
     var ajaxForm = new AjaxForm( wpAjax );
+
+    console.log( ajaxForm )
     ajaxForm.setObservers();
   });
 });
