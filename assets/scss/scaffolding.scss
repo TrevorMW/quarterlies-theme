@@ -29,7 +29,6 @@ body{
 
 .wrapper{
   position: relative;
-  border:1px solid red;
 }
 
 .table{
@@ -41,7 +40,6 @@ body{
   max-width:1180px;
   margin: 0 auto;
   min-height:50px;
-  border:1px solid blue;
 
   &.table{
     margin: 0 auto;
