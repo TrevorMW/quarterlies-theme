@@ -4,7 +4,19 @@
  * @author     Trevor Wagner
  */
 
-;(function ($, window, undefined ) {
+(function (root, factory)
+{
+  if (typeof exports === 'object')
+  {
+    module.exports = factory( window.jQuery );
+  }
+  else if ( typeof define === 'function' && define.amd )
+  {
+    define( ['jquery'], function( jquery ) {
+      return (factory( jquery ));
+    });
+  }
+}( this, function ($) {
 
   var AjaxForm = function(){
 
@@ -19,7 +31,7 @@
       flags = { canSubmit:false  };
 
     return this;
-  };
+  }
 
   AjaxForm.prototype.init = function( form, url )
   {
@@ -43,7 +55,7 @@
     } else {
       $(document).trigger('loader:hide');
     }
-  };
+  }
 
   AjaxForm.prototype.setObservers = function( ajax_url )
   {
@@ -57,17 +69,17 @@
       $(document).trigger( 'formMsg:init', formMsg );
       this.init( $(this), ajax_url );
     });
-  };
+  }
 
   AjaxForm.prototype.collectData = function()
   {
     this.data.formData = this.form.el.serialize();
-  };
+  }
 
   AjaxForm.prototype.confirmFormRequest = function()
   {
     return this.form.confirm !== false ? confirm( this.form.confirm ) : true ;
-  };
+  }
 
   AjaxForm.prototype.makeRequest = function()
   {
@@ -81,7 +93,7 @@
       data:this.data.formData,
       success:this.formSuccess
     });
-  };
+  }
 
   AjaxForm.prototype.formSuccess = function()
   {
@@ -90,6 +102,8 @@
     if( typeof resp == 'object' ){
       $(document).trigger('formMsg:show', resp );
     }
-  };
+  }
 
-})(jQuery, window );
+  return AjaxForm;
+
+}));
