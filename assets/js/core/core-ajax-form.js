@@ -86,8 +86,8 @@
     }
   };
 
-  $(document).on( "core:load core:asyncLoad", function() {
-    console.log( wpAjax );
+  $(document).on( 'core:load core:asyncLoad', function( e ) {
+    console.log( e, wpAjax );
     AjaxForm.setObservers( wpAjax );
   });
 

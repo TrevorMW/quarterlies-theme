@@ -23,10 +23,10 @@
 			<div class="table-cell third header-logo">
 				<a href="#">
 					<h1>Custom Header Logo</h1>
-					<img src="<?php echo get_template_directory_uri(); ?>" alt="" />
+					<!-- <img src="<?php echo get_template_directory_uri(); ?>" alt="" /> -->
 				</a>
 			</div>
-			<div class="table-cell two-third main-navigation">
+			<div class="table-cell two-third right main-navigation">
 				<nav role="navigation">
 					<ul>
 						<li><a href="#">Fake Link</a></li>
@@ -38,6 +38,6 @@
 		</div>
 	</header>
 
-	<main class="wrapper" role="main">
+	<main class="wrapper" role="main" data-loader-parent>
 		<div class="container">
 
