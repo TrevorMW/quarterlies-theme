@@ -167,7 +167,7 @@ function load_custom_wp_admin_style()
  */
 function add_javascript()
 {
-  $app_base = get_template_directory_uri() . '/assets/js';
+  $app_base = get_template_directory_uri() . '/assets/js/core';
 
 	if( !is_admin() )
 	{
@@ -175,7 +175,7 @@ function add_javascript()
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js' );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
 
-    wp_localize_script( 'coreJS', 'wpAjax', array(
+    wp_localize_script( 'coreJS', 'core', array(
       'ajax_url' => get_template_directory() . wp_get_theme() . '/ajax.php',
       'baseUrl' => $app_base,
       'deps'    => array( $app_base . '/core.js')

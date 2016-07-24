@@ -7,10 +7,9 @@ if (typeof jQuery === 'function') {
 }
 
 requirejs.config({
-  baseUrl: "/",
+  baseUrl: core.baseUrl,
   deps: [ "AjaxForm" ],
   paths: {
-    jquery: "libs/jquery.min", // v.1.10.2
     AjaxForm: "core-ajax-form",
   }
 });
