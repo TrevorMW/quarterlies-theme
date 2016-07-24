@@ -1,14 +1,13 @@
 'use strict';
 
 // DEPENDENCIES
-var gulp   = require('gulp' ),
-    sass   = require('gulp-sass' ),
-    concat = require('gulp-concat' ),
-    rename = require('gulp-rename' ),
-    uglify = require('gulp-uglify');
+var gulp      = require('gulp'),
+    sass      = require('gulp-sass'),
+    concat    = require('gulp-concat'),
+    rename    = require('gulp-rename'),
+    uglify    = require('gulp-uglify');
 
-// BASIC PATH INFORMATION
-var jsFiles     = './assets/js/core/core.js',
+var jsFiles     = './assets/js/core/core-*.js',
     jsDest      = './assets/static/js',
     scssFiles   = './assets/scss/',
     scssDest    = './assets/static/css',
@@ -30,9 +29,10 @@ gulp.task( 'themeSass', function () {
 
 gulp.task( 'scripts', function() {
   return gulp.src(jsFiles)
-    .pipe( concat( '*.js') )
-    .pipe( uglify() )
-    .pipe( rename('core.js') )
+    .pipe( concat( 'core.js') )
+    .pipe( uglify().on('error', function(e){
+    console.log(e);
+  }) )
     .pipe( gulp.dest( jsDest ) );
 });
 
@@ -45,3 +45,7 @@ gulp.task( 'watch', function () {
 // BUNDLED TASKS
 gulp.task( 'sass', ['coreSass','themeSass'] );
 gulp.task( 'compile', ['coreSass', 'themeSass', 'scripts'] );
+
+
+
+
