@@ -1,0 +1,44 @@
+@import 'variables';
+
+html { font-size: 62.5%; }
+
+body{
+  font-family:@baseFont;
+  font-size:14px;
+  text-transform: uppercase;
+  line-height:32px;
+  letter-spacing:1px;
+  font-weight:600;
+}
+
+.acc{
+  display: none;
+}
+
+.wrap,
+.wrapper,
+.container{
+  display: block;
+  width:100%;
+  clear:both;
+}
+
+.wrap{
+  border:1px solid blue;
+}
+
+.wrapper{
+  position: relative;
+  border:1px solid red;
+}
+
+.container{
+  max-width:1180px;
+  margin: 0 auto;
+  min-height:100px;
+  border:1px solid black;
+
+  @media $below-1180 {
+    max-width:1024px;
+  }
+}
