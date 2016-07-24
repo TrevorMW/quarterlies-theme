@@ -6,17 +6,19 @@
 
 ;(function ($, window, undefined ) {
 
-  var AjaxForm = function( ajax_url ){
+  var AjaxForm = function(){
 
-    var form :{
-          el: null, action: null, confirm: false,submit: null, url:null,
-        },
-        data:{
-          formData: null
-        },
-        flags:{
-          canSubmit:false
-      };
+    var form  = {
+      el: null,
+      action: null,
+      confirm: false,
+      submit: null,
+      url:null
+    },
+      data  = { formData: null },
+      flags = { canSubmit:false  };
+
+    return this;
   };
 
   AjaxForm.prototype.init = function( form, url )
@@ -53,7 +55,7 @@
           formMsg = form.find('[data-form-msg]');
 
       $(document).trigger( 'formMsg:init', formMsg );
-      AjaxForm.init( $(this), ajax_url );
+      this.init( $(this), ajax_url );
     });
   };
 
