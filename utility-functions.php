@@ -94,36 +94,6 @@ function __is_blog()
   return ( ( ( is_archive() ) || ( is_home() ) ) && ( $posttype == 'post' )  ) ? true : false ;
 }
 
-function get_post_term_links_by_count( $id, $cat, $count = 10 )
-{
-  $html = array();
-
-  if( is_int( $id ) && $cat != null )
-  {
-    $terms = wp_get_post_terms( $id , $cat );
-
-    if( count( $terms ) > 0 )
-    {
-      $i = 1;
-
-      foreach( $terms as $term )
-      {
-        if( $i <= $count )
-        {
-          if( $term->slug != 'uncategorized' )
-          {
-            $html[] = '<a href="'.get_term_link( $term, 'category').'">'.$term->name.'</a>';
-          }
-        }
-
-        $i++;
-      }
-    }
-  }
-
-  return $html;
-}
-
 function get_array_from_object( $array = array() )
 {
   $result = array();
@@ -138,8 +108,6 @@ function get_array_from_object( $array = array() )
 
   return $result;
 }
-
-
 
 function var_template_include( $t )
 {
@@ -176,16 +144,16 @@ function add_style_sheets()
 	{
 		wp_enqueue_style( 'reset', get_template_directory_uri().'/style.css', 'screen'  );
 		wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen' );
-		wp_enqueue_style( 'main', get_template_directory_uri().'/assets/css/style.less', 'screen' );
+		wp_enqueue_style( 'main', get_template_directory_uri().'/assets/static/css/style.less', 'screen' );
 	}
 }
 add_action('wp_enqueue_scripts', 'add_style_sheets');
 
 
-// IF ADMIN JS OR STYLES ARE NEEDED< YOU CAN USE THIS AS A TEMPLATE
+// IF ADMIN JS OR STYLES ARE NEEDED, YOU CAN USE THIS AS A TEMPLATE
 function load_custom_wp_admin_style()
 {
-  wp_enqueue_style( 'admin-fixes', get_template_directory_uri().'/assets/css/admin-fixes.css', 'screen'  );
+  //wp_enqueue_style( 'admin-fixes', get_template_directory_uri().'/assets/css/admin-fixes.css', 'screen'  );
 }
 //add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
@@ -203,29 +171,15 @@ function add_javascript()
 	if( !is_admin() )
 	{
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
-		wp_enqueue_script( 'genericJS', get_template_directory_uri().'/assets/js/general.js');
-		wp_enqueue_script( 'waypoints', get_template_directory_uri().'/assets/js/waypoints.js');
-		wp_enqueue_script( 'instafeed', get_template_directory_uri().'/assets/js/instafeed.js');
-
-		is_page('press') ? wp_enqueue_script( 'sticky', get_template_directory_uri().'/assets/js/sticky.js') : '';
-	}
+		wp_enqueue_script( 'coreJS', get_template_directory_uri().'/assets/js/core.js');
+  }
 }
 add_action('wp_enqueue_scripts', 'add_javascript');
 
 
 
-// ONLY NECCESARY FOR WOOCOMMERCE THEMES, UNCOMMENT IF NEEDED.
-function mgt_dequeue_styles_and_scripts()
-{
-  if ( class_exists( 'woocommerce' ) )
-  {
-    wp_dequeue_style( 'select2' );
-    wp_deregister_style( 'select2' );
-
-    wp_dequeue_script( 'select2');
-    wp_deregister_script('select2');
-  }
-}
+// ONLY NECESSARY FOR DECOUPLING JS SCRIPTS THAT ARE NOT NEEDED
+function mgt_dequeue_styles_and_scripts(){}
 //add_action( 'wp_enqueue_scripts', 'mgt_dequeue_stylesandscripts', 100 );
 //add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
@@ -297,83 +251,6 @@ function admin_bar_replace_howdy($wp_admin_bar)
 add_filter('admin_bar_menu', 'admin_bar_replace_howdy', 25);
 
 
-
-
-function change_search_form( $form )
-{
-  global $post;
-
-  $form = '<form role="search" method="get" data-search-form action="' . esc_url( home_url( '/' ) ) . '">
-              <input type="hidden" name="page_identifier" value="'.$post->ID.'" />
-              <ul class="inline">
-                <li class="inline-input">
-                  <label class="acc">' . _x( 'Search for:', 'label' ) . '</label>
-                  <input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label' ) . '" />
-                </li>
-                <li class="inline-trigger">
-                  <button type="submit"><i class="fa fa-fw fa-search"></i></button>
-                </li>
-              </ul>
-      		 </form>';
-
-  return $form;
-}
-add_filter( 'get_search_form', 'change_search_form' );
-
-
-
-/**
- * Provides a simple login form for use anywhere within WordPress. By default, it echoes
- * the HTML immediately. Pass array('echo'=>false) to return the string instead.
- *
- * @since 3.0.0
- *
- * @param array $args Configuration options to modify the form output.
- * @return string|void String when retrieving.
- */
-function custom_login_form( $args = array() )
-{
-	$defaults = array(
-		'echo' => true,
-		'redirect' => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], // Default redirect is back to the current page
-		'remember' => true,
-		'value_username' => '',
-		'value_remember' => false, // Set this to true to default the "Remember me" checkbox to checked
-	);
-
-	/**
-	 * Filter the default login form output arguments.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @see wp_login_form()
-	 *
-	 * @param array $defaults An array of default login form arguments.
-	 */
-	$args = wp_parse_args( $args, apply_filters( 'login_form_defaults', $defaults ) );
-
-	$form = '<form data-ajax-form data-action="ajax_login" autocomplete="off">
-	          <span data-form-msg></span>
-      			<ul>
-      			  <li class="full login-username">
-        				<input type="text" name="log" value="' . esc_attr( $args['value_username'] ) . '" placeholder="' . esc_html( $args['label_username'] ) . '" autocomplete="off"/>
-        			</li>
-        			<li class="full login-password">
-        				<input type="password" name="pwd" value="" placeholder="' . esc_html( $args['label_password'] ) . '" autocomplete="off" />
-        			</li>
-        			<li class="submit submit-right">
-        				<button type="submit" name="wp-submit" class="btn"><i data-progress class="fa fa-fw fa-spin fa-spinner"></i> ' . esc_attr( $args['label_log_in'] ) . '</button>
-        				<input type="hidden" name="redirect_to" value="' . esc_url( $args['redirect'] ) . '" />
-        				'.wp_nonce_field( 'ajax-login-nonce', 'security' ).'
-        			</li>
-      			</ul>
-      		</form>';
-
-	if ( $args['echo'] )
-		echo $form;
-	else
-		return $form;
-}
 
 
 // ADDS SUPPORT FOR CUSTOM EDITOR STYLES THAT LET CLIENTS USE THE WYSIWYG EDITOR BETTER. UNCOMMENT IF YOU NEED THEM.

@@ -1,0 +1,75 @@
+@import 'variables';
+
+.rtl{
+  direction: rtl;
+  text-align: left;
+}
+
+.ltr{
+  direction: ltr;
+  text-align: left;
+}
+
+.full,
+.vfb-item{
+  width:100%;
+}
+
+.half{
+  width:48.5%;
+}
+
+.third{
+  width:32%;
+}
+
+.two-third{
+  width:65%;
+}
+
+.fourth{
+  width:24%;
+}
+
+.three-fourth{
+  width:74%;
+}
+
+.right,
+.vfb-right-half{
+  float:right;
+}
+
+.table-cell{
+
+  .half{
+    width:50%;
+  }
+
+  .third{
+    width:33.333%;
+  }
+
+  .two-third{
+    width:66.6667%;
+  }
+
+  .fourth{
+    width:25%;
+  }
+
+  .three-fourth{
+    width:75%;
+  }
+}
+
+
+.align-right{
+  text-align: right;
+}
+
+.align-left{
+  text-align: left;
+}
+
+
