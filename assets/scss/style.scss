@@ -2,22 +2,6 @@
 
 .wrapper{
 
-  header&,
-  footer&{
-    padding:5px 0;
-  }
-
-  header&{
-    border-bottom:1px solid #ddd;
-  }
-
-  footer&{
-    border-top:1px solid #ddd;
-  }
-
-  main&{
-    padding:30px 0;
-  }
 }
 
 .container{
@@ -26,6 +10,29 @@
 
 .table{
 
+}
+
+header{
+
+  &.wrapper{
+    padding:5px 0;
+  }
+}
+
+footer{
+
+  &.wrapper{
+    border-bottom:1px solid #ddd;
+    padding:5px 0;
+  }
+}
+
+main{
+
+  &.wrapper{
+    border-top:1px solid #ddd;
+    padding:30px 0;
+  }
 }
 
 @import 'utilities';
