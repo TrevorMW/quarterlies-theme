@@ -5,7 +5,6 @@
  */
 ?>
 <!DOCTYPE html>
-<!--[if IE 8 ]><html <?php language_attributes(); ?> class="IE ie8"> <![endif]-->
 <!--[if IE 9 ]><html <?php language_attributes(); ?> class="IE ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>><!--<![endif]-->
 <head>
@@ -19,18 +18,25 @@
 </head>
 <body <?php body_class(); ?>>
 
-	<div class="wrapper header" role="menubar">
-		<header class="container">
-			<div class="logo">
+	<header class="wrapper header" role="menubar">
+		<div class="container table">
+			<div class="table-cell third header-logo">
 				<a href="#">
+					<h1>Custom Header Logo</h1>
 					<img src="<?php echo get_template_directory_uri(); ?>" alt="" />
 				</a>
 			</div>
-			<nav class="main" role="navigation">
-
-			</nav>
-		</header>
-	</div>
+			<div class="table-cell two-third main-navigation">
+				<nav role="navigation">
+					<ul>
+						<li><a href="#">Fake Link</a></li>
+						<li><a href="#">Fake Link</a></li>
+						<li><a href="#">Fake Link</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
 
 	<main class="wrapper" role="main">
 		<div class="container">

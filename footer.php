@@ -7,11 +7,11 @@
 	</div>
 </main>
 
-<div class="wrapper footer">
-	<footer class="container">
+<footer class="wrapper footer">
+	<div class="container">
 
-	</footer>
-</div>	
+	</div>
+</footer>
 
 <?php wp_footer(); ?>
 

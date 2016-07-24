@@ -4,6 +4,7 @@
  * User: Trevor
  * Date: 7/24/16
  * Time: 8:23 AM
+ * lifted from http://coderrr.com/create-your-own-admin-ajax-php-type-handler
  */
 
 if ( !defined( 'ABSPATH' ) )
@@ -26,6 +27,7 @@ header('Cache-Control: no-cache');
 header('Pragma: no-cache');
 
 $action = esc_attr( $_POST['action'] );
+$nonce  = esc_attr( $_POST['_wpnonce'] );
 
 $allowed_actions = array(
   'load_home_form',
