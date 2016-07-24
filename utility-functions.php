@@ -184,7 +184,7 @@ add_action('wp_enqueue_scripts', 'add_javascript');
 
 
 // ONLY NECESSARY FOR DECOUPLING JS SCRIPTS THAT ARE NOT NEEDED
-function mgt_dequeue_styles_and_scripts(){}core:asyncLoad
+function mgt_dequeue_styles_and_scripts(){}
 //add_action( 'wp_enqueue_scripts', 'mgt_dequeue_stylesandscripts', 100 );
 //add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
