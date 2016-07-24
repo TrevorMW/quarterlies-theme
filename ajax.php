@@ -6,6 +6,9 @@
  * Time: 8:23 AM
  */
 
+if ( !defined( 'ABSPATH' ) )
+  exit;
+
 define( 'DOING_AJAX', true );
 
 $ajaxAllowed = true;

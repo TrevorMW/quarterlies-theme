@@ -174,7 +174,7 @@ function add_javascript()
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
 
     wp_localize_script( 'coreJS', 'wpAjax', array(
-      'ajax_url' => 'wp-content/themes/BasicWpTheme/ajax.php'
+      'ajax_url' => get_template_directory() . wp_get_theme() . '/ajax.php'
     ));
   }
 }
