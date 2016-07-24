@@ -29,7 +29,7 @@ gulp.task( 'themeSass', function () {
 
 gulp.task( 'scripts', function() {
   return gulp.src(jsFiles)
-    .pipe( concat( 'core.js') )
+   // .pipe( concat( 'core.js') )
     .pipe( uglify().on('error', function(e){
     console.log(e);
   }) )
