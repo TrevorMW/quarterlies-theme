@@ -91,5 +91,11 @@
     }
   }
 
+  $(document ).on( 'core:load', function(){
+    var ajaxForm = new AjaxForm( core.ajaxUrl );
+
+    console.log( ajaxForm, core.ajaxUrl );
+    ajaxForm.setObservers();
+  })
 
 })( jQuery, window );
