@@ -8,17 +8,18 @@
 
   var AjaxForm = function(){
 
-    var form  = {
+    this.form = {
       el: null,
       action: null,
       confirm: false,
       submit: null,
       url:null
-    }, data  = { formData: null },
-      flags = { canSubmit:false  };
+    };
+    this.data  = { formData: null };
+    this.flags = { canSubmit:false  };
 
     return this;
-  }
+  };
 
   AjaxForm.prototype.init = function( form, url )
   {
@@ -37,40 +38,43 @@
 
     this.collectData();
 
-    if( this.confirmFormRequest() ){
+    if( this.confirmFormRequest() )
+    {
       this.makeRequest( this );
-    } else {
-      $(document).trigger('loader:hide');
     }
-  }
+    else
+    {
+      $(document).trigger('core:loader:hide');
+    }
+  };
 
-  AjaxForm.prototype.setObservers = function( ajax_url )
+  AjaxForm.prototype.setObservers = function( inst, ajaxUrl )
   {
-    $(document).on( 'submit', '[data-ajax-form]', function(e)
+    $(document).on( 'submit', '[data-ajax-form]', { inst : inst, ajaxUrl : ajaxUrl }, function( e )
     {
       e.preventDefault();
 
       var form    = $(this),
           formMsg = form.find('[data-form-msg]');
 
-      $(document).trigger( 'formMsg:init', formMsg );
-      this.init( $(this), ajax_url );
+      $(document).trigger( 'core:message:init', formMsg );
+      inst.init( form, ajaxUrl );
     });
-  }
+  };
 
   AjaxForm.prototype.collectData = function()
   {
     this.data.formData = this.form.el.serialize();
-  }
+  };
 
   AjaxForm.prototype.confirmFormRequest = function()
   {
     return this.form.confirm !== false ? confirm( this.form.confirm ) : true ;
-  }
+  };
 
   AjaxForm.prototype.makeRequest = function()
   {
-    $(document).trigger('loader:show').trigger('formMsg:clear');
+    $(document).trigger('core:loader:show').trigger('core:message:clear');
 
     // Ajax POST call using native DW library.
     $.ajax({
@@ -80,22 +84,20 @@
       data:this.data.formData,
       success:this.formSuccess
     });
-  }
+  };
 
   AjaxForm.prototype.formSuccess = function()
   {
-    $(document).trigger('loader:hide');
+    $(document).trigger('core:loader:hide');
 
     if( typeof resp == 'object' ){
-      $(document).trigger('formMsg:show', resp );
+      $(document).trigger('core:message:show', resp );
     }
-  }
+  };
 
-  $(document).on( 'ready', function(){
+  $(document).on( 'core:load', function( e ){
     var ajaxForm = new AjaxForm( core.ajaxUrl );
-
-    console.log( ajaxForm, core.ajaxUrl );
-    ajaxForm.setObservers();
+    ajaxForm.setObservers( ajaxForm, core.ajaxUrl );
   })
 
 })( jQuery, window );

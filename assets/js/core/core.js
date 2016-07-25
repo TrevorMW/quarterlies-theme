@@ -1,41 +1,12 @@
-//
-//if (typeof jQuery === 'function') {
-//  define( 'jquery', function ()
-//  {
-//    return jQuery;
-//  });
-//}
-//
-//requirejs.config({
-//  baseUrl: core.baseUrl,
-//  deps: [ "AjaxForm" ],
-//  paths: {
-//    AjaxForm: "core-ajax-form",
-//  }
-//});
-//
-
-
 ;(function( $, window, undefined )
 {
-  console.log( core.ajaxUrl );
-  //var AjaxForm = require('AjaxForm');
-
   // DEFINED GLOBAL EVENTS THAT CAN BE HOOKED INTO THROUGHOUT ALL LOADED JS.
   $(document).ready(function( e ){
-    console.log( e )
-    $(document).trigger('core:load', e).delay(500).trigger('core:asyncLoad', e);
+    $(document).trigger('core:load').delay(500).trigger('core:load:async');
   });
 
   $(window).resize(function( e ){
-    $(document).trigger('core:resize', e);
-  });
-
-  $(document).on( 'ready', function( e ) {
-    var ajaxForm = new AjaxForm( core.ajaxUrl );
-
-    console.log( ajaxForm, core.ajaxUrl );
-    ajaxForm.setObservers();
+    $(window).trigger('core:resize', e);
   });
 
 })(jQuery, window );
