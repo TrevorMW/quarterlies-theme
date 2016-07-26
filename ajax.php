@@ -7,18 +7,16 @@
  * lifted from http://coderrr.com/create-your-own-admin-ajax-php-type-handler
  */
 
-if ( !defined( 'ABSPATH' ) )
-  exit;
-
 define( 'DOING_AJAX', true );
 
 $ajaxAllowed = true;
 
-if( !isset( $_POST['action']) ){
+if( !isset( $_POST['action'] ) ){
   $ajaxAllowed = false;
 }
 
-require_once( ABSPATH . '/wp-admin/wp-load.php' );
+$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+require_once( $parse_uri[0] . 'wp-load.php' );
 
 // Typical headers
 header('Content-Type: text/html');
@@ -40,10 +38,10 @@ if( $ajaxAllowed ){
   }
   else
   {
-    die(-1);
+    die(0);
   }
 }
 else
 {
-  die(-1);
+  die(0);
 }

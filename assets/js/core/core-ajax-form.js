@@ -91,7 +91,7 @@
     $(document).trigger('core:loader:hide');
 
     if( typeof resp == 'object' ){
-      $(document).trigger('core:message:show', resp );
+      $(document).trigger('core:message:show', resp ).trigger('core:form:success');
     }
   };
 

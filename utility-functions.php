@@ -172,13 +172,21 @@ function add_javascript()
 	if( !is_admin() )
 	{
     //wp_enqueue_script( 'requirejs', '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js' );
-		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js' );
-		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js');
+		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js', null, true,
+      null );
+		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js', array('jquery'), true,
+      null);
+    wp_enqueue_script( 'core-ajax',  get_template_directory_uri().'/assets/static/js/core-ajax-form.js', array('jquery'), true,
+      null);
+    wp_enqueue_script( 'core-async',  get_template_directory_uri().'/assets/static/js/core-async-content.js', array
+      ('jquery')
+      , true,
+      null);
 
-    wp_enqueue_script( 'core-ajax',  get_template_directory_uri().'/assets/static/js/core-ajax-form.js');
+    $theme  = wp_get_theme( 'template' );
 
     wp_localize_script( 'coreJS', 'core', array(
-      'ajaxUrl' => get_template_directory() . wp_get_theme() . '/ajax.php',
+      'ajaxUrl' => get_template_directory_uri() . '/ajax.php',
       'baseUrl' => $app_base,
       'deps'    => array( $app_base . '/core.js')
     ));

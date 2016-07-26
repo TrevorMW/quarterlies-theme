@@ -7,7 +7,7 @@ var gulp      = require('gulp'),
     rename    = require('gulp-rename'),
     uglify    = require('gulp-uglify');
 
-var jsFiles     = './assets/js/core/core-*.js',
+var jsFiles     = './assets/js/core/core*.js',
     jsDest      = './assets/static/js',
     scssFiles   = './assets/scss/',
     scssDest    = './assets/static/css',
@@ -29,23 +29,18 @@ gulp.task( 'themeSass', function () {
 
 gulp.task( 'scripts', function() {
   return gulp.src(jsFiles)
-   // .pipe( concat( 'core.js') )
-    .pipe( uglify().on('error', function(e){
-    console.log(e);
-  }) )
+    //.pipe( concat( 'core.js') )
+    //.pipe( uglify().on('error', function(e){ console.log(e); }) )
     .pipe( gulp.dest( jsDest ) );
-});
-
-// WATCH FOR CHANGES AND RUN BUNDLED TASKS
-gulp.task( 'watch', function () {
-  gulp.watch( './assets/scss/*.scss', ['sass'] );
-  gulp.watch( './assets/js/*.js', ['scripts'] );
 });
 
 // BUNDLED TASKS
 gulp.task( 'sass', ['coreSass','themeSass'] );
 gulp.task( 'compile', ['coreSass', 'themeSass', 'scripts'] );
 
-
-
+// WATCH FOR CHANGES AND RUN BUNDLED TASKS
+gulp.task( 'watch', function () {
+  gulp.watch( './assets/scss/**/*.scss', ['sass'] );
+  gulp.watch( './assets/js/core/**/*.js', ['scripts'] );
+});
 

@@ -6,7 +6,7 @@
   });
 
   $(window).resize(function( e ){
-    $(window).trigger('core:resize', e);
+    $(document).trigger('core:resize', e)
   });
 
 })(jQuery, window );
