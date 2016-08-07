@@ -1,0 +1,16 @@
+@import 'variables';
+@import 'bourbon';
+
+.btn{
+  display:inline-block;
+  width:auto;
+  padding:12px 20px;
+  border-radius:2px;
+  background-color:$btn-base-color;
+  color:$btn-text;
+  @include transition( background-color, 0.4s );
+
+  &:hover{
+    background-color:$btn-hover;
+  }
+}

@@ -74,7 +74,7 @@
 
   AjaxForm.prototype.makeRequest = function()
   {
-    $(document).trigger('core:loader:show').trigger('core:message:clear');
+    $(document).trigger('core:overlay:show').trigger('core:message:clear');
 
     // Ajax POST call using native DW library.
     $.ajax({
@@ -88,7 +88,7 @@
 
   AjaxForm.prototype.formSuccess = function()
   {
-    $(document).trigger('core:loader:hide');
+    $(document).trigger('core:overlay:hide');
 
     if( typeof resp == 'object' ){
       $(document).trigger('core:message:show', resp ).trigger('core:form:success');

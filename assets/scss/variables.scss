@@ -1,6 +1,18 @@
 
 /* COLORS */
 
+$blue:#09f;
+
+
+/* FONTS */
+$heading: 'ABeeZee', sans-serif;
+$base: 'Roboto Condensed', sans-serif;
+
+/* FONTS */
+$btn-base-color:$blue;
+$btn-text:#fff;
+$btn-hover:lighten( $blue, 20% );
+
 /* Chrome, Safari, Opera */
 
 $above-1280: "only screen and (min-width:1280px)";

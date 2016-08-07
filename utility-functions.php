@@ -144,6 +144,8 @@ function add_style_sheets()
 	{
 		wp_enqueue_style( 'reset', get_template_directory_uri().'/style.css', 'screen'  );
 		wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen' );
+    wp_enqueue_style( 'googleFonts', '//fonts.googleapis.com/css?family=ABeeZee|Roboto+Condensed:300,400,700',
+      'screen' );
     wp_enqueue_style( 'core', get_template_directory_uri().'/assets/static/css/core.css', 'screen' );
 		wp_enqueue_style( 'main', get_template_directory_uri().'/assets/static/css/style.css', 'screen' );
 	}
@@ -176,9 +178,17 @@ function add_javascript()
       null );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js', array('jquery'), true,
       null);
+    wp_enqueue_script( 'core-loader',  get_template_directory_uri().'/assets/static/js/core-ajax-loader.js', array
+    ('jquery'), true,
+      null);
     wp_enqueue_script( 'core-ajax',  get_template_directory_uri().'/assets/static/js/core-ajax-form.js', array('jquery'), true,
       null);
     wp_enqueue_script( 'core-async',  get_template_directory_uri().'/assets/static/js/core-async-content.js', array
+      ('jquery')
+      , true,
+      null);
+
+    wp_enqueue_script( 'core-popup',  get_template_directory_uri().'/assets/static/js/core-popup.js', array
       ('jquery')
       , true,
       null);

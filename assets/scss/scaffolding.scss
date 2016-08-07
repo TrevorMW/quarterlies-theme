@@ -9,6 +9,9 @@ body{
   line-height:32px;
   letter-spacing:1px;
   font-weight:600;
+  box-sizing:border-box;
+  font-family: $base;
+  font-weight:400
 }
 
 .acc{
@@ -34,10 +37,10 @@ body{
 .table{
   display:table;
   table-layout:fixed;
+  width:100%;
 }
 
 .container{
-  max-width:1180px;
   margin: 0 auto;
   min-height:50px;
 
@@ -49,9 +52,9 @@ body{
 .table-cell{
   display: table-cell;
   vertical-align: middle;
-  width:auto;
+  width:100%;
 }
 
 main{
-  min-height:500px;
+
 }

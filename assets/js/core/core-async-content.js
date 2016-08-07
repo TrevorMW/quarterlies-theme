@@ -89,8 +89,6 @@
 
   };
 
-
-
   $(document).on( 'core:load', function(){
     var async = new AsyncLoad();
     async.findAsyncItems();
