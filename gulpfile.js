@@ -29,10 +29,12 @@ gulp.task( 'themeSass', function () {
 
 gulp.task( 'scripts', function() {
   return gulp.src(jsFiles)
-    //.pipe( concat( 'core.js') )
-    //.pipe( uglify().on('error', function(e){ console.log(e); }) )
+    .pipe( concat( 'core.js') )
+    .pipe( uglify() )
     .pipe( gulp.dest( jsDest ) );
 });
+
+//.on( 'error', function(e){ console.log(e); })
 
 // BUNDLED TASKS
 gulp.task( 'sass', ['coreSass','themeSass'] );
