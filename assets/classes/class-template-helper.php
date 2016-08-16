@@ -29,6 +29,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 class Template_Helper
 {
+
+  public static function fileName( $name ){
+
+    $realName = $name;
+
+    if( $name != '' && strpos( $name, 'template') === false ){
+      $realName = 'template-' . $realName;
+    }
+
+    if( $name != '' && strpos( $name, '.php') === false ){
+      $realName = $realName . '.php';
+    }
+
+    return $realName;
+  }
+
   /**
    * loadPluginView
    *
@@ -39,10 +55,10 @@ class Template_Helper
    * @param null $params
    * @return string
    */
-  public static function loadPluginView( $name, $params = null )
+  public static function loadView( $name, $params = null )
   {
     $html = '';
-    $file = './assets/views/' . $name ;
+    $file = get_template_directory() . '/assets/views/' . self::fileName( $name );
 
     $params != null ? extract( $params, EXTR_SKIP ) : '' ;
 

@@ -7,7 +7,7 @@ var gulp      = require('gulp'),
     rename    = require('gulp-rename'),
     uglify    = require('gulp-uglify');
 
-var jsFiles     = './assets/js/core/core*.js',
+var jsFiles     = './assets/js/**/*.js',
     jsDest      = './assets/static/js',
     scssFiles   = './assets/scss/',
     scssDest    = './assets/static/css',
@@ -30,11 +30,11 @@ gulp.task( 'themeSass', function () {
 gulp.task( 'scripts', function() {
   return gulp.src(jsFiles)
     .pipe( concat( 'core.js') )
-    .pipe( uglify() )
+    //.pipe( uglify().on( 'error', function(e){ console.log(e); }) )
     .pipe( gulp.dest( jsDest ) );
 });
 
-//.on( 'error', function(e){ console.log(e); })
+//
 
 // BUNDLED TASKS
 gulp.task( 'sass', ['coreSass','themeSass'] );

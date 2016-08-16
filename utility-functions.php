@@ -4,6 +4,7 @@ function get_current_template( $echo = false )
 {
   if( !isset( $GLOBALS['current_theme_template'] ) )
       return false;
+
   if( $echo )
       echo $GLOBALS['current_theme_template'];
   else
@@ -16,13 +17,13 @@ function get_excerpt_by_id( $post_id, $length = 35 )
   $the_excerpt    = strip_tags( $new_post->post_content ); //Strips tags and images
   $words          = explode(' ', $the_excerpt, $length + 1);
 
-  if(count($words) > $length) :
+  if(count($words) > $length)
+  {
+    array_pop( $words );
+    array_push( $words, '…' );
+    $the_excerpt = implode( ' ', $words );
 
-    array_pop($words);
-    array_push($words, '…');
-    $the_excerpt = implode(' ', $words);
-
-  endif;
+  };
 
   return apply_filters( 'the_content', $the_excerpt );
 }
@@ -72,7 +73,7 @@ function get_template_part_with_data($slug = null, $name = null, array $params =
 
   $templates = array();
   if (isset($name))
-      $templates[] = "/views/{$slug}-{$name}.php";
+    $templates[] = "/views/{$slug}-{$name}.php";
 
   $templates[] = "/views/{$slug}.php";
 
@@ -173,30 +174,10 @@ function add_javascript()
 
 	if( !is_admin() )
 	{
-    //wp_enqueue_script( 'requirejs', '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js' );
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js', null, true,
       null );
 		wp_enqueue_script( 'coreJS',  get_template_directory_uri().'/assets/static/js/core.js', array('jquery'), true,
       null);
-//    wp_enqueue_script( 'core-loader',  get_template_directory_uri().'/assets/static/js/core-ajax-loader.js', array
-//    ('jquery'), true,
-//      null);
-//    wp_enqueue_script( 'core-ajax',  get_template_directory_uri().'/assets/static/js/core-ajax-form.js', array('jquery'), true,
-//      null);
-//    wp_enqueue_script( 'core-async',  get_template_directory_uri().'/assets/static/js/core-async-content.js', array
-//      ('jquery')
-//      , true,
-//      null);
-//
-//    wp_enqueue_script( 'core-popup',  get_template_directory_uri().'/assets/static/js/core-popup.js', array
-//      ('jquery')
-//      , true,
-//      null);
-
-    wp_localize_script( 'requirejs', 'require', array(
-      'baseUrl' => $app_base,
-      'deps'    => array( $app_base . '/core.js')
-    ));
 
     wp_localize_script( 'coreJS', 'core', array(
       'ajaxUrl' => get_template_directory_uri() . '/ajax.php',
