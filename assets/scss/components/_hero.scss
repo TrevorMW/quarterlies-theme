@@ -1,0 +1,43 @@
+@import 'variables';
+@import 'bourbon';
+
+[data-hero]{
+  position: relative;
+  overflow:hidden;
+
+  & [data-hero-overlay]{
+    position: absolute;
+    left: 0;
+    top:0;
+    width:100%;
+    text-align: center;
+    color:#fff;
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:2px;
+    line-height:36px;
+    text-transform: uppercase;
+    background-color:rgba(0,0,0,0.24);
+    opacity:0;
+    @include transition( opacity, .3s );
+
+    &.active{
+      height:100%;
+      opacity:1;
+    }
+  }
+
+  & .hero-inner{
+    vertical-align: middle;
+    height:100%;
+    @include transition( height, .3s );
+  }
+
+  & .hero-content{
+    max-width:65%;
+    margin:0 auto;
+    font-size:24px;
+    line-height:50px;
+    letter-spacing:1px;
+  }
+}

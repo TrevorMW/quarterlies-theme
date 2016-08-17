@@ -6,77 +6,70 @@
 
 ;(function ( $, window, undefined )
 {
-  var hero = function(){
-    this.heros = [];
+  var Hero = function(){
     this.hero = {
       el:'',
       img:'',
-      aspect_ratio:''
+      imgHeight:null,
+      aspectRatio:null,
+      heroOff: null,
+      overlay:null
     }
   };
 
-  hero.prototype.init = function(){
+  Hero.prototype.init = function(){
 
-    var heros = $('[data-hero]'),
-        self  = this;
+    var hero = $('[data-hero]');
 
-    if( heros.length > 0 ){
-      self.heros = heros;
-      heros.each(function(){
-        self.el = $(this);
-        self.aspect_ratio = self.initial_ratio();
+    if( hero.length === 1 ){
+      this.hero.el           = hero;
+      this.hero.img          = this.hero.el.find('img');
+      this.hero.aspectRatio  = this.initialRatio( this.hero.img );
+      this.hero.imgHeight    = this.hero.img.height();
+      this.hero.heroOff      = this.hero.el.data('hero-off');
+      this.hero.overlay      = this.hero.el.find('[data-hero-overlay]');
 
-        self.setObservers( $(this) );
-      })
+      this.setObservers();
+      this.resizeHero();
     }
   };
 
-  hero.prototype.setObservers = function( el ){
-
+  Hero.prototype.setObservers = function(){
     var self = this;
 
-    $(document).on( 'core:resize', this, function(){
-      self.resize_hero();
+    $(document).on( 'core:resize', function(){
+      self.resizeHero();
     })
   };
 
+  Hero.prototype.resizeHero = function(){
+    var height = Math.max( this.hero.imgHeight, this.getAspectRatioHeight() );
 
-  hero.prototype.resize_hero = function( func ){
-    setTimeout( function( data ){
-      var height = data.img.height() <= data.get_aspect_ratio_width() ? data.img.height() : data.get_aspect_ratio_width();
+    setTimeout( function( data, height ){
+      data.activate( height );
+      data.show();
+    }, 300, this, height )
+  };
 
-      data.el.css( 'height', height );
+  Hero.prototype.getAspectRatioHeight = function(){
+    return parseInt( $( window ).width() * this.hero.aspectRatio );
+  };
 
-      setTimeout( function( data ){
-        data.el.addClass( 'active' )
-      }, 300, data )
+  Hero.prototype.initialRatio = function( img ) {
+    return parseFloat( img.attr( 'height' ) / img.attr( 'width' ) );
+  };
 
-    }, 300, this )
-  }
+  Hero.prototype.activate = function( height ){
+    this.hero.overlay.css( 'height', height );
+  };
 
-  hero.prototype.get_aspect_ratio_width = function(){
-    return parseInt( $( window ).width() * this.aspect_ratio );
-  }
-
-  hero.prototype.remove_hero_size = function(){
-    setTimeout( function( data )
-    {
-      data.el.css( 'height', '' );
-    }, 250, this )
-  }
-
-  hero.prototype.initial_ratio = function(){
-    this.img = this.el.closest( '.hero-parent' ).find( '[data-hero-img] img' );
-
-    return parseFloat( this.img.attr( 'height' ) / this.img.attr( 'width' ) );
-  }
-
-  hero.prototype.remove_height = function(){
-    this.el.css( 'height', '' );
-  }
+  Hero.prototype.show = function(){
+    this.hero.overlay.addClass( 'active' )
+  };
 
   $(document).on( 'core:load', function(){
+    hero = new Hero();
     hero.init();
   })
 
-})(jquery, window );
+})(jQuery, window );

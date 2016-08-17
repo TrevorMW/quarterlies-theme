@@ -11,13 +11,13 @@ if( is_array( $hero ) )
     $link .= '<a href="'.$hero['cta_link'].'" class="btn ">'.$hero['cta_text'].'</a>';
   }
 
-  $html .= '<div class="wrapper hero-parent">';
+  $html .= '<div class="wrapper" data-hero data-hero-off="'.$hero['hero_turns_off'].'">';
 
     $html .= '<div class="hero-img" data-hero-img><img src="'.$hero['img']['url'].'" height="'.$hero['img']['height'].'" width="'.$hero['img']['width'].'" alt="" /></div>';
 
     if( $hero['heading'] != '' )
     {
-      $html .= '<div class="table hero-overlay" data-hero>';
+      $html .= '<div class="table" data-hero-overlay>';
 
         $html .= '<div class="table-cell hero-inner">';
 

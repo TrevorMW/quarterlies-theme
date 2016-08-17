@@ -1,19 +1,37 @@
-retina:{
-  el:'',
-    init:function( el )
-  {
-    if( el[0] != undefined )
-      this.el = el;
-  },
-  replace_images:function()
-  {
-    var retina_src = this.el.data('retina'),
-      height     = this.el.attr('height'),
-      width      = this.el.attr('width');
+/**
+ * @package     AjaxForm
+ * @version     1.0
+ * @author     Trevor Wagner
+ */
 
-    this.el.attr('src', retina_src ).css( 'height', height ).css( 'width', width );
-  },
-  is_retina: function()
+;(function ( $, window, undefined )
+{
+  var Retina = function(){
+    this.img = {
+      el:null,
+      src:null
+    }
+  };
+
+  Retina.prototype.init = function ( el ){
+
+    if( el.length > 0 ){
+      this.img.el     = el;
+      this.img.src    = el.data('retina');
+    }
+
+    if( true ){
+      this.replaceImages();
+    }
+  };
+
+  Retina.prototype.replaceImages = function (){
+    this.img.el.attr('src', this.img.src );
+    this.img.el.css( 'height', this.img.height() );
+    this.img.el.css( 'width', this.img.width() );
+  };
+
+  Retina.prototype.isRetina = function ()
   {
     if( window.matchMedia )
     {
@@ -21,5 +39,17 @@ retina:{
 
       return ( mq && mq.matches || ( window.devicePixelRatio > 1 ) );
     }
-  }
-}
+  };
+
+  $(document).on('core:load', function( e ){
+    var retinaImgs = $('img[data-retina]');
+
+    if( retinaImgs.length >= 1 ){
+      retinaImgs.each(function(){
+        retina = new Retina();
+        retina.init( $(this) );
+      })
+    }
+  })
+
+})(jQuery, window);
