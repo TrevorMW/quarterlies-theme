@@ -21,7 +21,8 @@ function echoColorText () {
 
 attachUtils (){
   if [ ! -d "./bash_utils" ]; then
-    git clone git@github.com:TrevorMW/bash_utils.git
+    git clone --recursive git@github.com:TrevorMW/bash_utils.git
+
   else
     cd "bash_utils/"
     git pull origin master
