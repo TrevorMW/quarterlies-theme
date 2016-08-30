@@ -1,44 +1,60 @@
 #!/usr/bin/env bash
 
-# CLR_ESC=$'\033['
-# NOCOLOR=$'\033[0m'
-#
-# DEFAULT=$'37m'
-#
-# # All these variables has a function with the same name, but in lower case.
-# RED=$'31m'              # set red foreground
-# GREEN=$'32m'            # set green foreground
-# YELLOW=$'33m'           # set brown foreground
-# BLUE=$'34m'             # set blue foreground
-# MAGENTA=$'35m'          # set magenta foreground
-# CYAN=$'36m'             # set cyan foreground
-# WHITE=$'37m'            # set white foreground
-# GRAY=$'90m'             # set gray foreground
-#
-# function echoColorText () {
-#   echo $CLR_ESC$3"$2$1"${NOCOLOR}
-# }
-#
-# if [ -d "./node_modules" ]; then
-#     echoColorText 'Updating Node Modules' 'INFO: ' $YELLOW
-#     npm update
-# else
-#     echoColorText 'Installing Node Modules' 'INFO: ' $YELLOW
-#     npm install
-# fi
-#
-# echoColorText 'Compiling theme assets' 'INFO: ' $BLUE
-# gulp compile
+CLR_ESC=$'\033['
+NOCOLOR=$'\033[0m'
 
+DEFAULT=$'37m'
 
-if [ ! -d "./bash_utils" ]; then
-  git clone git@github.com:TrevorMW/bash_utils.git
-else
-  cd "bash_utils/"
-  git pull origin master
-  cd ..
-fi;
+# All these variables has a function with the same name, but in lower case.
+RED=$'31m'              # set red foreground
+GREEN=$'32m'            # set green foreground
+YELLOW=$'33m'           # set brown foreground
+BLUE=$'34m'             # set blue foreground
+MAGENTA=$'35m'          # set magenta foreground
+CYAN=$'36m'             # set cyan foreground
+WHITE=$'37m'            # set white foreground
+GRAY=$'90m'             # set gray foreground
 
-if [ ! -h 'bin' ]; then
-  ln -s ./bash_utils/bin ./bin
-fi;
+function echoColorText () {
+  echo $CLR_ESC$3"$2$1"${NOCOLOR}
+}
+
+attachUtils (){
+  if [ ! -d "./bash_utils" ]; then
+    git clone git@github.com:TrevorMW/bash_utils.git
+  else
+    cd "bash_utils/"
+    git pull origin master
+    cd ..
+  fi;
+}
+
+makeUtilsSymlink (){
+  if [ ! -h 'bin' ]; then
+    ln -s ./bash_utils/bin ./bin
+  fi;
+}
+
+updateModules (){
+  if [ -d "./node_modules" ]; then
+      echoColorText 'Updating Node Modules' 'INFO: ' $YELLOW
+      npm update
+  else
+      echoColorText 'Installing Node Modules' 'INFO: ' $YELLOW
+      npm install
+  fi
+}
+
+setup (){
+
+  attachUtils;
+
+  makeUtilsSymlink;
+
+  updateModules;
+
+  setEnvVariables;
+
+}
+
+setup
