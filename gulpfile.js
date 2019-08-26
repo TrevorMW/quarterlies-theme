@@ -22,6 +22,10 @@ gulp.task( 'themeSass', function () {
   return gulp.src( scssFiles + 'style.scss' ).pipe( sass( sassOptions ).on( 'error', sass.logError ) ).pipe( gulp.dest( scssDest ) )
 });
 
+gulp.task( 'loginSass', function () {
+  return gulp.src( scssFiles + 'login.scss' ).pipe( sass( sassOptions ).on( 'error', sass.logError ) ).pipe( gulp.dest( scssDest ) )
+});
+
 // ADMIN SASS COMPILATION, DISABLED BY DEFAULT, AS NOT NEEDED IN THEME, NORMALLY
 //gulp.task( 'adminSass', function () {
 //  return gulp.src( scssFiles + 'admin-style.scss' ).pipe( sass( sassOptions ).on( 'error', sass.logError ) ).pipe( gulp.dest( scssDest ) );
@@ -37,7 +41,7 @@ gulp.task( 'scripts', function() {
 //
 
 // BUNDLED TASKS
-gulp.task( 'sass', ['coreSass','themeSass'] );
+gulp.task( 'sass', ['coreSass', 'themeSass', 'loginSass'] );
 gulp.task( 'compile', ['coreSass', 'themeSass', 'scripts'] );
 
 // WATCH FOR CHANGES AND RUN BUNDLED TASKS

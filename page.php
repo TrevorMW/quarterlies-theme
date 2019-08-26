@@ -7,7 +7,7 @@
  * @subpackage themename
  */
 
-get_header();the_post(); ?>
+get_header(); the_post(); ?>
 
 <div class="primary">
   <section class="page" role="article">
@@ -21,4 +21,5 @@ get_header();the_post(); ?>
     </div>
   </section>
 </div>
+
 <?php get_sidebar(); get_footer(); ?>

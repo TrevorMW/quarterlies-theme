@@ -22,6 +22,7 @@ nav{
 
   & a{
     display: block;
+    cursor:pointer;
   }
 
   .main-navigation & {
@@ -35,6 +36,52 @@ nav{
 
     & a {
       padding: 6px 12px;
+    }
+  }
+
+  .subUtilityBar &{
+
+      & ul{
+        display: block;
+        margin:0;
+        padding:0;
+        text-align:right;
+      }
+
+      & a{
+
+        display: block;
+        padding:0 5px;
+        font-size:18px;
+
+        &:hover{
+          color:$paleRed;
+        }
+      }
+  }
+
+  .leftColumn &{
+
+    & ul{
+      padding:0;
+      margin:0;
+    }
+
+    & li{
+      display: block;
+    }
+    
+    & a{
+      color:#aaa;
+      padding:10px 20px;
+      font-size:18px;
+      text-align:right;
+      border-bottom:1px solid darken($darkgray, 5%);
+
+      &:hover{
+        color:#fff;
+        background-color:$black;
+      }
     }
   }
 }

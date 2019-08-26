@@ -1,5 +1,9 @@
 @import 'variables';
 
+.acc{
+  display: none !important;
+}
+
 .rtl{
   direction: rtl;
   text-align: left;
@@ -31,8 +35,16 @@
   width:24%;
 }
 
+.fifth{
+  width:20%;
+}
+
 .three-fourth{
   width:74%;
+}
+
+.fourFifths{
+  width:80%;
 }
 
 .right,
@@ -58,8 +70,16 @@
     width:25%;
   }
 
+  .fifth{
+    width:20%;
+  }
+
   .three-fourth{
     width:75%;
+  }
+
+  .fourFifths{
+    width:80%;
   }
 }
 
@@ -67,12 +87,16 @@
   height:100vh;
 }
 
-.align-right{
+.alignRight{
   text-align: right;
 }
 
-.align-left{
+.alignLeft{
   text-align: left;
+}
+
+.alignCenter{
+  text-align:center;
 }
 
 

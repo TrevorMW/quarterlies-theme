@@ -27,19 +27,8 @@ header('Pragma: no-cache');
 $action = esc_attr( $_POST['action'] );
 $nonce  = esc_attr( $_POST['_wpnonce'] );
 
-$allowed_actions = array(
-  'load_home_form',
-);
-
 if( $ajaxAllowed ){
-  if( in_array( $action, $allowed_actions ) )
-  {
-    is_user_logged_in() ? do_action( 'wp_ajax_' . $action ) : do_action( 'wp_ajax_nopriv_' . $action );
-  }
-  else
-  {
-    die(0);
-  }
+  is_user_logged_in() ? do_action( 'wp_ajax_' . $action ) : do_action( 'wp_ajax_nopriv_' . $action );
 }
 else
 {

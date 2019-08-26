@@ -5,43 +5,57 @@
  */
 ?>
 <!DOCTYPE html>
-<!--[if IE 9 ]><html <?php language_attributes(); ?> class="IE ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>><!--<![endif]-->
+<html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<!--[if IE 8 ]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
 <title><?php echo site_global_description(); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/assets/media/favicon.ico">
-<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 
-	<header class="wrapper header" role="menubar">
-		<div class="container table">
-			<div class="table-cell fourth header-logo">
-				<a href="#">
-					<h1>Custom Header Logo</h1>
-					<!-- <img src="<?php echo get_template_directory_uri(); ?>" alt="" /> -->
-				</a>
+	<div class="wrapper headerBar">
+		<header class="table">
+			<div class="tableCell fifth logoBox">
+				<img src="<?php echo get_template_directory_uri() ?>/assets/static/images/pineapple.png" alt=""/>
+				<h1>LRSGEN</h1>
 			</div>
-			<div class="table-cell three-fourth align-right main-navigation">
-				<nav role="navigation">
-					<ul>
-						<li><a href="#">Fake Link</a></li>
-						<li><a href="#">Fake Link</a></li>
-						<li><a href="#">Fake Link</a></li>
-					</ul>
+
+			<div class="tableCell fourFifths toolbar">
+				
+			</div>
+		</header>
+	</div>
+
+	<div class="wrapper mainDashboard">
+		<div class="table">
+
+			<div class="tableCell fifth leftColumn">
+				<nav class="main-nav">
+					<?php wp_nav_menu(array(
+						'menu'           => 'primary',
+						'theme_location' => 'primary',
+						'container'      => false,
+						'items_wrap'     => '%3$s',
+						'depth'          => 0
+					)) ?>
 				</nav>
-
 			</div>
-		</div>
-	</header>
-
-	<div class="main-content">
-		<main class="wrapper " role="main" data-loader-parent>
-			<div class="container">
-
-
-
+	
+			<div class="tableCell fourFifths rightColumn">
+				<div class="table subUtilityBar">
+					<div class="tableCell half">
+						<h2><?php echo $post->post_title; ?></h2>
+					</div>
+					<div class="tableCell half">
+						<nav>
+							<ul>
+								<li><a href=""><i class="fa fa-th"></i></a></li>
+								<li><a href=""><i class="fa fa-list"></i></a></li>
+							</ul>
+						</nav>
+						<?php //echo $lrsgen->getUtilityBarContent($post->ID); ?>
+					</div>
+				</div>
+				

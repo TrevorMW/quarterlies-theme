@@ -1,17 +1,28 @@
 
 /* COLORS */
 
-$blue:#09f;
-
+$black: #333;
+$darkgray:#454545;
+$crimson:#ba1010;
+$gray: #968b84;
+$paleRed:#dd4848;
+$sand: #d6ceb9;
+$success:limegreen;
 
 /* FONTS */
 $heading: 'ABeeZee', sans-serif;
 $base: 'Roboto Condensed', sans-serif;
 
 /* FONTS */
-$btn-base-color:$blue;
+$btn-base-color:$paleRed;
 $btn-text:#fff;
-$btn-hover:lighten( $blue, 20% );
+$btn-hover:darken( $paleRed, 20% );
+
+@mixin boxShadow(){
+    -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);   
+}
 
 /* Chrome, Safari, Opera */
 
